@@ -1,12 +1,10 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
-
-const fauxReducer = (state = '', action) => {
-  return state;
-};
+import api from './middleware/api';
+import hobbyReducer from './reducers/hobbyReducer';
 
 const reducer = combineReducers({
-  fauxReducer: fauxReducer
+  hobbies: hobbyReducer
 });
 
-export default createStore(reducer, applyMiddleware(thunk));
+export default createStore(reducer, applyMiddleware(thunk, api));

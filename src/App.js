@@ -5,7 +5,7 @@ import './App.css';
 import store from './store';
 import HobbyListView from './components/views/HobbyListView';
 
-function App() {
+const App = () => {
   return (
     <Provider store={store}>
       <Router>
@@ -13,6 +13,6 @@ function App() {
       </Router>
     </Provider>
   );
-}
+};
 
 export default App;
