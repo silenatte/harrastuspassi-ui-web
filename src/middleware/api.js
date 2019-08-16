@@ -43,13 +43,11 @@ export default store => dispatch => action => {
   };
 
   const [requestType, successType, failType] = callAPI.types;
-  const [requestMode, successMode, failMode] = callAPI.modes;
 
   // Dispatch action
   const requestAction = actionWith({
     ...callAPI,
-    type: requestType,
-    mode: requestMode
+    type: requestType
   });
   dispatch(requestAction);
 
@@ -66,8 +64,7 @@ export default store => dispatch => action => {
         actionWith({
           ...callAPI,
           type: successType,
-          payload: data,
-          mode: successMode
+          payload: data
         })
       );
     })
@@ -80,8 +77,7 @@ export default store => dispatch => action => {
             ...callAPI,
             type: failType,
             status: error.response.status,
-            payload: error.response.data,
-            mode: failMode
+            payload: error.response.data
           })
         );
       }

@@ -5,7 +5,9 @@ import {
 } from '../actions/hobbyActions';
 
 const INITIAL_STATE = {
-  hobbyList: { hobbies: [], error: null, loading: false }
+  hobbies: [],
+  error: null,
+  loading: false
 };
 
 const hobbyReducer = (state = INITIAL_STATE, action) => {
@@ -13,18 +15,24 @@ const hobbyReducer = (state = INITIAL_STATE, action) => {
     case FETCH_HOBBIES:
       return {
         ...state,
-        hobbyList: { hobbies: [], error: null, loading: true }
+        hobbies: [],
+        error: null,
+        loading: true
       };
     case FETCH_HOBBIES_SUCCESS:
       return {
         ...state,
-        hobbyList: { hobbies: action.payload, error: null, loading: false }
+        hobbies: action.payload,
+        error: null,
+        loading: false
       };
     case FETCH_HOBBIES_FAILURE:
       const error = action.payload; // TODO: how to handle
       return {
         ...state,
-        hobbyList: { hobbies: [], error: error, loading: false }
+        hobbies: [],
+        error: error,
+        loading: false
       };
     default:
       return state;
