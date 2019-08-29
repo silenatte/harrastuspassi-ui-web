@@ -12,6 +12,8 @@ Implemented in React, requires Harrastuspassi backend API.
 - Run `npm install` to install dependencies
 - Create `.env.local` with the following variables:
   - `REACT_APP_API_URL=<host>/api/<api_version>/`
+  - `REACT_APP_TOKEN_URL=<host>/auth/token/`
+  - `REACT_APP_LOGIN_URL=<host>/accounts/login/`
 - Run `npm start` to start development server
 - Run `npm test` to execute tests
 

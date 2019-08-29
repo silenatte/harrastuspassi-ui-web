@@ -4,6 +4,7 @@ import {
   FETCH_TOKEN_SUCCESS,
   FETCH_TOKEN_FAILURE
 } from '../actions/authActions';
+import { LOGIN_URL } from '../config';
 
 const INITIAL_STATE = {
   user: null,
@@ -26,7 +27,6 @@ const authReducer = (state = INITIAL_STATE, action) => {
       };
     case FETCH_TOKEN_SUCCESS:
       const accessTokenPayload = jwt.decode(action.payload.access);
-      console.log('accessTokenPayload', accessTokenPayload);
       const user = {
         id: accessTokenPayload.user_id,
         firstName: accessTokenPayload.first_name,
@@ -41,16 +41,9 @@ const authReducer = (state = INITIAL_STATE, action) => {
         loading: null
       };
     case FETCH_TOKEN_FAILURE:
-      const error = action.payload;
-      console.log('FETCH_TOKEN_FAILURE', error);
-      return {
-        ...state,
-        user: null,
-        accessToken: null,
-        refreshToken: null,
-        error: error,
-        loading: false
-      };
+      // if for any we can't get a token, forward to the login page
+      window.location = LOGIN_URL;
+      return state;
     default:
       return state;
   }

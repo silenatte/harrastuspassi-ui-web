@@ -26,7 +26,6 @@ const HobbyListView = () => {
   useEffect(() => {
     // initial data fetch
     dispatch(ActionCreators.fetchHobbies());
-    dispatch(ActionCreators.fetchToken());
   }, [dispatch]);
 
   return (
