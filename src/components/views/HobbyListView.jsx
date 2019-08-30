@@ -18,8 +18,6 @@ const useStyles = makeStyles({
 const HobbyListView = () => {
   const dispatch = useDispatch();
   const hobbyState = useSelector(state => state.hobbies);
-  const authState = useSelector(state => state.auth);
-  const isLoggedIn = authState.accessToken != null;
   const classes = useStyles();
   const hobbyDeleteHandler = hobby_id => event => {
     dispatch(ActionCreators.deleteHobby(hobby_id));
@@ -30,7 +28,7 @@ const HobbyListView = () => {
       imageUrl={hobby.cover_image || 'https://placekitten.com/50/50'}
       name={hobby.name}
       secondaryText=""
-      showControls={isLoggedIn}
+      showControls={hobby.permissions.can_edit}
       deleteHandler={hobbyDeleteHandler(hobby.id)}
     />
   ));
