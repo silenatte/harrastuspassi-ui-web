@@ -7,12 +7,19 @@ import HobbyListItem from '../blocks/HobbyListItem';
 const HobbyListView = () => {
   const dispatch = useDispatch();
   const hobbyState = useSelector(state => state.hobbies);
+  const authState = useSelector(state => state.auth);
+  const isLoggedIn = authState.accessToken != null;
+  const hobbyDeleteHandler = hobby_id => event => {
+    dispatch(ActionCreators.deleteHobby(hobby_id));
+  };
   const hobbyList = hobbyState.hobbies.map(hobby => (
     <HobbyListItem
       key={hobby.id}
       imageUrl={hobby.cover_image}
       name={hobby.name}
       secondaryText="foo bar"
+      showControls={isLoggedIn}
+      deleteHandler={hobbyDeleteHandler(hobby.id)}
     />
   ));
 

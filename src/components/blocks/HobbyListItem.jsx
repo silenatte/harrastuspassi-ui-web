@@ -4,8 +4,11 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  Divider
+  Divider,
+  ListItemSecondaryAction,
+  IconButton
 } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
   hobbyListImage: {
@@ -18,7 +21,7 @@ const useStyles = makeStyles({
 });
 
 const HobbyListItem = props => {
-  const { imageUrl, name, secondaryText } = props;
+  const { deleteHandler, imageUrl, name, secondaryText, showControls } = props;
   const classes = useStyles();
   return (
     <div>
@@ -27,6 +30,15 @@ const HobbyListItem = props => {
           <img className={classes.hobbyListImage} alt={name} src={imageUrl} />
         </ListItemIcon>
         <ListItemText primary={name} secondary={secondaryText} />
+        {showControls ? (
+          <ListItemSecondaryAction>
+            <IconButton edge="end" aria-label="delete" onClick={deleteHandler}>
+              <DeleteIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        ) : (
+          ''
+        )}
       </ListItem>
       <Divider
         className={classes.insetDivider}

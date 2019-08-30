@@ -35,6 +35,10 @@ export default store => dispatch => action => {
     throw new Error('Invalid action types');
   }
 
+  if (!callAPI.context) {
+    callAPI.context = {};
+  }
+
   // Data merge
   const actionWith = data => {
     const finalAction = { ...action, ...data };
@@ -43,6 +47,7 @@ export default store => dispatch => action => {
   };
 
   const [requestType, successType, failType] = callAPI.types;
+  const withCredentials = callAPI.withCredentials || false;
 
   // Dispatch action
   const requestAction = actionWith({
@@ -56,7 +61,9 @@ export default store => dispatch => action => {
     url: callAPI.url,
     method: callAPI.method,
     data: callAPI.data,
-    params: callAPI.params
+    params: callAPI.params,
+    headers: callAPI.headers,
+    withCredentials: withCredentials
   })
     .then(response => response.data)
     .then(data => {
