@@ -11,10 +11,21 @@ Implemented in React, requires Harrastuspassi backend API.
 
 - Run `npm install` to install dependencies
 - Create `.env.local` with the following variables:
-  - `REACT_APP_API_URL=<host>/api/<api_version>/`
+  - `REACT_APP_API_URL=<backend host>/api/<api_version>/`
+  - `REACT_APP_TOKEN_URL=<backend host>/auth/token/`
+  - `REACT_APP_LOGIN_URL=<backend host>/accounts/login/`
 - Run `npm start` to start development server
 - Run `npm test` to execute tests
 
 ## Deployment
 
-- TBD deployment instructions
+- Run `npm install` to install dependencies
+- Create `.env.production.local` file with the following variables:
+  - `REACT_APP_API_URL=<backend host>/api/<api_version>/`
+  - `REACT_APP_TOKEN_URL=<backend host>/auth/token/`
+  - `REACT_APP_LOGIN_URL=<backend host>/accounts/login/`
+- Run `npm run build`
+- Deploy the static content from `build/` to a webserver
+- Make sure the backend host sends the following CORS headers:
+  - `Access-Control-Allow-Origin: https:/this.service.com`
+  - `Access-Control-Allow-Credentials: true`
