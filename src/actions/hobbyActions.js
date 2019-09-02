@@ -1,9 +1,13 @@
-import { API, DELETE, GET } from '../middleware/api';
+import { API, DELETE, GET, POST } from '../middleware/api';
 import { API_URL } from '../config';
 
 const FETCH_HOBBIES = 'FETCH_HOBBIES';
 const FETCH_HOBBIES_SUCCESS = 'FETCH_HOBBIES_SUCCESS';
 const FETCH_HOBBIES_FAILURE = 'FETCH_HOBBIES_FAILURE';
+
+const CREATE_HOBBY = 'CREATE_HOBBY';
+const CREATE_HOBBY_SUCCESS = 'CREATE_HOBBY_SUCCESS';
+const CREATE_HOBBY_FAILURE = 'CREATE_HOBBY_FAILURE';
 
 const DELETE_HOBBY = 'DELETE_HOBBY';
 const DELETE_HOBBY_SUCCESS = 'DELETE_HOBBY_SUCCESS';
@@ -17,6 +21,15 @@ const fetchHobbies = () => ({
   }
 });
 
+const createHobby = hobby_payload => ({
+  [API]: {
+    types: [CREATE_HOBBY, CREATE_HOBBY_SUCCESS, CREATE_HOBBY_FAILURE],
+    method: POST,
+    url: `${API_URL}/hobbies/`,
+    data: hobby_payload
+  }
+});
+
 const deleteHobby = hobby_id => ({
   [API]: {
     types: [DELETE_HOBBY, DELETE_HOBBY_SUCCESS, DELETE_HOBBY_FAILURE],
@@ -27,12 +40,16 @@ const deleteHobby = hobby_id => ({
 });
 
 export {
-  FETCH_HOBBIES,
-  FETCH_HOBBIES_SUCCESS,
-  FETCH_HOBBIES_FAILURE,
+  CREATE_HOBBY,
+  CREATE_HOBBY_SUCCESS,
+  CREATE_HOBBY_FAILURE,
   DELETE_HOBBY,
   DELETE_HOBBY_SUCCESS,
   DELETE_HOBBY_FAILURE,
+  FETCH_HOBBIES,
+  FETCH_HOBBIES_SUCCESS,
+  FETCH_HOBBIES_FAILURE,
+  createHobby,
   deleteHobby,
   fetchHobbies
 };
