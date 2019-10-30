@@ -5,13 +5,17 @@ import apiAuthHeader from './middleware/apiAuthHeader';
 import hobbyReducer from './reducers/hobbyReducer';
 import authReducer from './reducers/authReducer';
 import categoryReducer from './reducers/categoryReducer';
+import organizerReducer from './reducers/organizerReducer';
+import locationReducer from './reducers/locationReducer';
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
 const reducer = combineReducers({
   auth: authReducer,
   hobbies: hobbyReducer,
-  categories: categoryReducer
+  categories: categoryReducer,
+  organizers: organizerReducer,
+  locations: locationReducer
 });
 
 export default createStore(

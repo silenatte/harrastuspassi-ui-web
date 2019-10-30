@@ -26,7 +26,10 @@ const createHobby = hobby_payload => ({
     types: [CREATE_HOBBY, CREATE_HOBBY_SUCCESS, CREATE_HOBBY_FAILURE],
     method: POST,
     url: `${API_URL}/hobbies/`,
-    data: hobby_payload
+    data: hobby_payload,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    }
   }
 });
 

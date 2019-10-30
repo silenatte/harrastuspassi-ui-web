@@ -10,11 +10,14 @@ const HobbyCreateView = ({ history }) => {
   const submitHandler = event => {
     event.preventDefault();
     console.log('Submit!', event.target);
-    const hobbyData = {
-      name: event.target.name.value,
-      description: event.target.description.value,
-      categories: event.target.category.value.split(',')
-    };
+    const hobbyData = new FormData()
+    hobbyData.append('name', event.target.name.value)
+    hobbyData.append('description', event.target.description.value)
+    hobbyData.append('location', event.target.location.value)
+    hobbyData.append('organizer', event.target.organizer.value)
+    hobbyData.append('cover_image', event.target.image.files[0])
+    event.target.category.value.split(',').forEach(element => hobbyData.append('categories', element))
+
     dispatch(ActionCreators.createHobby(hobbyData));
     history.push('/');
   };
@@ -22,6 +25,8 @@ const HobbyCreateView = ({ history }) => {
   useEffect(() => {
     // initial data fetch
     dispatch(ActionCreators.fetchCategories());
+    dispatch(ActionCreators.fetchOrganizers());
+    dispatch(ActionCreators.fetchLocations());
   }, [dispatch]);
 
   return (
