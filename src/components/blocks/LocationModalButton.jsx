@@ -1,0 +1,148 @@
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import { FormControl, TextField, Grid, Button, Box } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
+import ActionCreators from '../../actions';
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+
+const LocationModalButton = () => {
+  const [locationData, setLocationData] = React.useState({
+    name: '',
+    address: '',
+    zip_code: '',
+    city: '',
+    lat: '',
+    lon: ''
+  });
+
+  const dispatch = useDispatch();
+  const locationSubmitHandler = event => {
+    const locationFormData = {
+      name: locationData.name,
+      address: locationData.address,
+      zip_code: locationData.zip_code,
+      city: locationData.city,
+      lat: locationData.lat,
+      lon: locationData.lon
+    }
+    dispatch(ActionCreators.createLocation(locationFormData));
+    setOpen(false);
+  };
+
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  console.log(locationData);
+
+  return (
+    <React.Fragment>
+      <IconButton size='small'>
+        <AddIcon onClick={handleOpen} />
+      </IconButton>
+      <Modal
+        open={open}
+        onClose={handleClose}
+      >
+        <div style={{ top: '30%', left: '50%', transform: 'translate(-50%, -30%)' }} className={classes.paper}>
+          <h2>Add new location</h2>
+          <form>
+            <FormControl fullWidth>
+              <TextField
+                required
+                label="Name"
+                margin="dense"
+                variant="outlined"
+                onChange={(event) => setLocationData({ ...locationData, name: event.target.value })}
+              />
+            </FormControl>
+
+            <FormControl fullWidth>
+              <TextField
+                required
+                label="Address"
+                margin="dense"
+                variant="outlined"
+                onChange={(event) => setLocationData({ ...locationData, address: event.target.value })}
+              />
+            </FormControl>
+
+            <FormControl fullWidth>
+              <TextField
+                required
+                label="Zip code"
+                margin="dense"
+                variant="outlined"
+                onChange={(event) => setLocationData({ ...locationData, zip_code: event.target.value })}
+              />
+            </FormControl>
+
+            <FormControl fullWidth>
+              <TextField
+                required
+                label="City"
+                margin="dense"
+                variant="outlined"
+                onChange={(event) => setLocationData({ ...locationData, city: event.target.value })}
+              />
+            </FormControl>
+
+            <FormControl fullWidth>
+              <TextField
+                required
+                label="Latitude"
+                margin="dense"
+                variant="outlined"
+                onChange={(event) => setLocationData({ ...locationData, lat: event.target.value })}
+              />
+            </FormControl>
+
+            <FormControl fullWidth>
+              <TextField
+                required
+                label="Longitude"
+                margin="dense"
+                variant="outlined"
+                onChange={(event) => setLocationData({ ...locationData, lon: event.target.value })}
+              />
+            </FormControl>
+
+            <Box mt={5}>
+              <Grid container justify="flex-end" >
+                <Grid item>
+                  <Button onClick={handleClose}>
+                    Cancel
+                  </Button>
+                  <Button variant="contained" color="primary" type="button" onClick={locationSubmitHandler}>
+                    Save
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
+          </form>
+        </div>
+      </Modal>
+    </React.Fragment>
+  );
+};
+
+export default LocationModalButton;

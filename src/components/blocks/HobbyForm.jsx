@@ -4,6 +4,8 @@ import { FormControl, TextField, Button, Grid, Select, InputLabel, MenuItem, Box
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from 'react-router-dom';
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
+import OrganizerModalButton from './OrganizerModalButton'
+import LocationModalButton from './LocationModalButton'
 
 const HobbyForm = ({ cancelUrl, submitHandler }) => {
   const [selectValue, setSelectValue] = React.useState([]);
@@ -59,17 +61,20 @@ const HobbyForm = ({ cancelUrl, submitHandler }) => {
         </FormControl>
       </Box>
 
-      <Box mt={4}>
-        <FormControl fullWidth>
-          <InputLabel>Location</InputLabel>
-          <Select
-            id="location"
-            value={selectedLocation}
-            onChange={handleLocationChange}
-          >
-            {locationListItems}
-          </Select>
-        </FormControl>
+      <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
+        <div style={{ width: '100%' }}>
+          <FormControl fullWidth>
+            <InputLabel>Location</InputLabel>
+            <Select
+              id="location"
+              value={selectedLocation}
+              onChange={handleLocationChange}
+            >
+              {locationListItems}
+            </Select>
+          </FormControl>
+        </div>
+        <LocationModalButton />
       </Box>
 
       <Box mt={4}>
@@ -106,17 +111,20 @@ const HobbyForm = ({ cancelUrl, submitHandler }) => {
         </FormControl>
       </Box>
 
-      <Box mt={4}>
-        <FormControl fullWidth>
-          <InputLabel>Organizer</InputLabel>
-          <Select
-            id="organizer"
-            value={selectedOrganizer}
-            onChange={handleOrganizerChange}
-          >
-            {organizerListItems}
-          </Select>
-        </FormControl>
+      <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
+        <div style={{ width: '100%' }}>
+          <FormControl fullWidth>
+            <InputLabel>Organizer</InputLabel>
+            <Select
+              id="organizer"
+              value={selectedOrganizer}
+              onChange={handleOrganizerChange}
+            >
+              {organizerListItems}
+            </Select>
+          </FormControl>
+        </div>
+        <OrganizerModalButton />
       </Box>
 
       <Box mt={4}>
@@ -143,6 +151,7 @@ const HobbyForm = ({ cancelUrl, submitHandler }) => {
           </Select>
         </FormControl>
       </Box>
+
       <Box mt={3}>
         <Grid container justify="flex-end" >
           <Grid item>
