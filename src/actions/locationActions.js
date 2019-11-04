@@ -17,12 +17,12 @@ const fetchLocations = () => ({
   }
 });
 
-const createLocation = location_payload => ({
+const createLocation = data => ({
   [API]: {
     types: [CREATE_LOCATION, CREATE_LOCATION_SUCCESS, CREATE_LOCATION_FAILURE],
     method: POST,
     url: `${API_URL}/locations/`,
-    data: location_payload,
+    data: data,
   }
 });
 

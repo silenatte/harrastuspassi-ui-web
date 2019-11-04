@@ -23,8 +23,10 @@ const LocationModalButton = () => {
     address: '',
     zip_code: '',
     city: '',
-    lat: '',
-    lon: ''
+    coordinates: {
+      latitude: 0.0,
+      longitude: 0.0
+    }
   });
 
   const dispatch = useDispatch();
@@ -34,8 +36,13 @@ const LocationModalButton = () => {
       address: locationData.address,
       zip_code: locationData.zip_code,
       city: locationData.city,
-      lat: locationData.lat,
-      lon: locationData.lon
+      coordinates: {
+        type: 'Point',
+        coordinates: [
+          parseFloat(locationData.coordinates.latitude),
+          parseFloat(locationData.coordinates.longitude),
+        ]
+      },
     }
     dispatch(ActionCreators.createLocation(locationFormData));
     setOpen(false);
@@ -78,7 +85,6 @@ const LocationModalButton = () => {
 
             <FormControl fullWidth>
               <TextField
-                required
                 label="Address"
                 margin="dense"
                 variant="outlined"
@@ -88,7 +94,6 @@ const LocationModalButton = () => {
 
             <FormControl fullWidth>
               <TextField
-                required
                 label="Zip code"
                 margin="dense"
                 variant="outlined"
@@ -98,7 +103,6 @@ const LocationModalButton = () => {
 
             <FormControl fullWidth>
               <TextField
-                required
                 label="City"
                 margin="dense"
                 variant="outlined"
@@ -108,21 +112,19 @@ const LocationModalButton = () => {
 
             <FormControl fullWidth>
               <TextField
-                required
                 label="Latitude"
                 margin="dense"
                 variant="outlined"
-                onChange={(event) => setLocationData({ ...locationData, lat: event.target.value })}
+                onChange={(event) => setLocationData({ ...locationData, coordinates: { ...locationData.coordinates, latitude: event.target.value } })}
               />
             </FormControl>
 
             <FormControl fullWidth>
               <TextField
-                required
                 label="Longitude"
                 margin="dense"
                 variant="outlined"
-                onChange={(event) => setLocationData({ ...locationData, lon: event.target.value })}
+                onChange={(event) => setLocationData({ ...locationData, coordinates: { ...locationData.coordinates, longitude: event.target.value } })}
               />
             </FormControl>
 
