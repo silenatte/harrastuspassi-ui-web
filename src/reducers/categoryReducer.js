@@ -12,7 +12,6 @@ const INITIAL_STATE = {
 };
 
 const categoryReducer = (state = INITIAL_STATE, action) => {
-    console.log(action);
     let error = null;
     switch (action.type) {
         case FETCH_CATEGORIES:

@@ -1,31 +1,24 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { FormControl, TextField, Button, Grid, Select, InputLabel, MenuItem, Box, Input, Chip } from '@material-ui/core';
+import { FormControl, TextField, Button, Grid, Select, InputLabel, MenuItem, Box, Input, Chip, Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from 'react-router-dom';
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
-import OrganizerModalButton from './OrganizerModalButton'
-import LocationModalButton from './LocationModalButton'
+import OrganizerModalButton from './OrganizerModalButton';
+import LocationModalButton from './LocationModalButton';
+import HobbyEventModalButton from './HobbyEventModalButton';
+import HobbyEventItem from './HobbyEventItem';
 
 const HobbyForm = ({ cancelUrl, submitHandler }) => {
   const [selectValue, setSelectValue] = React.useState([]);
   const [selectedLocation, setSelectedLocation] = React.useState({});
   const [selectedOrganizer, setSelectedOrganizer] = React.useState({});
   const [selectedImage, setSelectedImage] = React.useState();
+  const [hobbyEventData, setHobbyEventData] = React.useState([]);
 
-  const categoryState = useSelector(state => state.categories);
-  const organizerState = useSelector(state => state.organizers);
-  const locationState = useSelector(state => state.locations);
-  const categoryListItems = categoryState.categories.map((category, index) => (
-    <MenuItem value={category.id} key={index}>{category.name}</MenuItem>
-  ));
-  const locationListItems = locationState.locations.map((location, index) => (
-    <MenuItem value={location.id} key={index}>{location.name}</MenuItem>
-  ));
-  const organizerListItems = organizerState.organizers.map((organizer, index) => (
-    <MenuItem value={organizer.id} key={index}>{organizer.name}</MenuItem>
-  ));
-
+  const handleRemoveEvent = id => {
+    setHobbyEventData(hobbyEventData.filter(item => item.id !== id));
+  }
   const handleLocationChange = event => {
     setSelectedLocation(event.target.value)
   }
@@ -35,6 +28,26 @@ const HobbyForm = ({ cancelUrl, submitHandler }) => {
   const handleImageChange = event => {
     setSelectedImage(event.target.files[0].name)
   }
+  const handleNewEvent = data => {
+    setHobbyEventData([data, ...hobbyEventData]);
+  }
+
+  const categoryState = useSelector(state => state.categories);
+  const organizerState = useSelector(state => state.organizers);
+  const locationState = useSelector(state => state.locations);
+
+  const categoryListItems = categoryState.categories.map((category, index) => (
+    <MenuItem value={category.id} key={index}>{category.name}</MenuItem>
+  ));
+  const locationListItems = locationState.locations.map((location, index) => (
+    <MenuItem value={location.id} key={index}>{location.name}</MenuItem>
+  ));
+  const organizerListItems = organizerState.organizers.map((organizer, index) => (
+    <MenuItem value={organizer.id} key={index}>{organizer.name}</MenuItem>
+  ));
+  const hobbyEventItems = hobbyEventData.map((hobbyEvent, index) => (
+    <HobbyEventItem data={hobbyEvent} key={index} handleRemoveEvent={(i) => handleRemoveEvent(i)} />
+  ));
 
   const useStyles = makeStyles(theme => ({
     button: {
@@ -48,7 +61,7 @@ const HobbyForm = ({ cancelUrl, submitHandler }) => {
   const classes = useStyles();
 
   return (
-    <form onSubmit={submitHandler} enctype="multipart/form-data">
+    <form onSubmit={submitHandler} encType="multipart/form-data">
       <Box mt={4}>
         <FormControl fullWidth>
           <TextField
@@ -152,7 +165,23 @@ const HobbyForm = ({ cancelUrl, submitHandler }) => {
         </FormControl>
       </Box>
 
-      <Box mt={3}>
+      <Box mt={4}>
+        <Grid
+          container
+          justify="space-between"
+        >
+          <Grid item>
+            <Typography variant="h4">Hobby events</Typography>
+          </Grid>
+          <Grid item>
+            <HobbyEventModalButton handleNewEvent={handleNewEvent} />
+          </Grid>
+        </Grid>
+      </Box>
+
+      {hobbyEventItems}
+
+      <Box mt={3} mb={3}>
         <Grid container justify="flex-end" >
           <Grid item>
             <Button component={Link} to={cancelUrl}>

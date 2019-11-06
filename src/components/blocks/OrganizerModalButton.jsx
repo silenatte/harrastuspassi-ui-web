@@ -44,8 +44,8 @@ const OrganizerModalButton = () => {
 
   return (
     <React.Fragment>
-      <IconButton size='small'>
-        <AddIcon onClick={handleOpen} />
+      <IconButton size='small' onClick={handleOpen}>
+        <AddIcon />
         </IconButton>
       <Modal
         open={open}

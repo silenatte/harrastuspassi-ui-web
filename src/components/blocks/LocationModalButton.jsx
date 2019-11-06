@@ -51,24 +51,14 @@ const LocationModalButton = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  console.log(locationData);
-
   return (
     <React.Fragment>
-      <IconButton size='small'>
-        <AddIcon onClick={handleOpen} />
+      <IconButton size='small' onClick={() => setOpen(true)}>
+        <AddIcon />
       </IconButton>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={() => setOpen(false)}
       >
         <div style={{ top: '30%', left: '50%', transform: 'translate(-50%, -30%)' }} className={classes.paper}>
           <h2>Add new location</h2>
@@ -131,7 +121,7 @@ const LocationModalButton = () => {
             <Box mt={5}>
               <Grid container justify="flex-end" >
                 <Grid item>
-                  <Button onClick={handleClose}>
+                  <Button onClick={() => setOpen(false)}>
                     Cancel
                   </Button>
                   <Button variant="contained" color="primary" type="button" onClick={locationSubmitHandler}>

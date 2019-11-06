@@ -12,7 +12,6 @@ const INITIAL_STATE = {
 };
 
 const hobbyReducer = (state = INITIAL_STATE, action) => {
-  console.log('action', action);
   let error = null;
   switch (action.type) {
     case FETCH_HOBBIES:
