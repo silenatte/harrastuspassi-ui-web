@@ -1,9 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import { FormControl, Grid, Button, Box } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
+import ActionCreators from '../../actions';
+import { useActions } from '../../hooks';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -16,11 +19,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const HobbyEventModalButton = ({ handleNewEvent }) => {
+  const actions = useActions(ActionCreators);
   const initialState = {
-    startDate: null,
-    endDate: null,
-    startTime: null,
-    endTime: null,
+    start_date: null,
+    end_date: null,
+    start_time: null,
+    end_time: null,
     id: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
   }
   const [hobbyEventData, setHobbyEventData] = React.useState(initialState);
@@ -30,6 +34,7 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
   const handleSave = () => {
     handleNewEvent(hobbyEventData);
     setHobbyEventData(initialState);
+    actions.setHobbyEventsFormData(hobbyEventData);
     setOpen(false);
   }
 
@@ -59,10 +64,10 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
                       variant="inline"
                       format="DD.MM.YYYY"
                       margin="normal"
-                      id="startDate"
+                      id="start_date"
                       label="Start date"
-                      value={hobbyEventData.startDate}
-                      onChange={(date) => setHobbyEventData({ ...hobbyEventData, startDate: date })}
+                      value={hobbyEventData.start_date}
+                      onChange={(date => setHobbyEventData({ ...hobbyEventData, start_date: date }))}
                     />
                   </FormControl>
                 </Grid>
@@ -76,8 +81,8 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
                       margin="normal"
                       id="date-picker-inline"
                       label="End date"
-                      value={hobbyEventData.endDate}
-                      onChange={(date) => setHobbyEventData({ ...hobbyEventData, endDate: date })}
+                      value={hobbyEventData.end_date}
+                      onChange={(date => setHobbyEventData({ ...hobbyEventData, end_date: date }))}
                     />
                   </FormControl>
 
@@ -100,8 +105,8 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
                       variant="inline"
                       margin="normal"
                       label="Start time"
-                      value={hobbyEventData.startTime}
-                      onChange={(time) => setHobbyEventData({ ...hobbyEventData, startTime: time })}
+                      value={hobbyEventData.start_time}
+                      onChange={(time => setHobbyEventData({ ...hobbyEventData, start_time: time }))}
                     />
                   </FormControl>
                 </Grid>
@@ -114,8 +119,8 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
                       variant="inline"
                       margin="normal"
                       label="End time"
-                      value={hobbyEventData.endTime}
-                      onChange={(time) => setHobbyEventData({ ...hobbyEventData, endTime: time })}
+                      value={hobbyEventData.end_time}
+                      onChange={(time => setHobbyEventData({ ...hobbyEventData, end_time: time }))}
                     />
                   </FormControl>
 

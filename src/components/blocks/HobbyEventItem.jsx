@@ -2,14 +2,16 @@ import React from 'react';
 import { Grid, TextField, Box } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import moment from 'moment';
 
 const HobbyEventItem = ({ data, handleRemoveEvent }) => {
+  console.log(data);
   return (
     <Box mt={4}>
       <Grid container direction="row" spacing={3} style={{ flexWrap: 'nowrap' }}>
         <Grid item>
           <TextField
-            value={data.startDate.format("DD.MM.YYYY")}
+            value={data.start_date ? moment(data.start_date).format("DD.MM.YYYY") : null}
             variant="outlined"
             label="Start date"
             InputProps={{
@@ -18,7 +20,7 @@ const HobbyEventItem = ({ data, handleRemoveEvent }) => {
           />
           <Box mt={3}>
             <TextField
-              value={data.startTime.format("HH:mm")}
+              value={data.start_time ? moment(data.start_time).format("HH:mm") : null}
               variant="outlined"
               label="Start time"
               InputProps={{
@@ -29,7 +31,7 @@ const HobbyEventItem = ({ data, handleRemoveEvent }) => {
         </Grid>
         <Grid item>
           <TextField
-            value={data.endDate.format("DD.MM.YYYY")}
+            value={data.end_date ? moment(data.end_date).format("DD.MM.YYYY") : null}
             variant="outlined"
             label="End date"
             InputProps={{
@@ -38,7 +40,7 @@ const HobbyEventItem = ({ data, handleRemoveEvent }) => {
           />
           <Box mt={3}>
             <TextField
-              value={data.endTime.format("HH:mm")}
+              value={data.end_time ? moment(data.end_time).format("HH:mm") : null}
               variant="outlined"
               label="End time"
               InputProps={{

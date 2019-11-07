@@ -7,6 +7,7 @@ import authReducer from './reducers/authReducer';
 import categoryReducer from './reducers/categoryReducer';
 import organizerReducer from './reducers/organizerReducer';
 import locationReducer from './reducers/locationReducer';
+import formReducer from './reducers/formReducer';
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
@@ -15,7 +16,8 @@ const reducer = combineReducers({
   hobbies: hobbyReducer,
   categories: categoryReducer,
   organizers: organizerReducer,
-  locations: locationReducer
+  locations: locationReducer,
+  formData: formReducer
 });
 
 export default createStore(
