@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   FormControl,
@@ -22,8 +22,9 @@ import HobbyEventModalButton from './HobbyEventModalButton';
 import HobbyEventItem from './HobbyEventItem';
 import ActionCreators from '../../actions';
 import { useDeepCompareEffect } from '../../hooks';
+import { isNumber, isString } from 'util';
 
-const HobbyForm = ({ cancelUrl }) => {
+const HobbyEditForm = ({ cancelUrl }) => {
   const categoryState = useSelector(state => state.categories);
   const organizerState = useSelector(state => state.organizers);
   const locationState = useSelector(state => state.locations);
@@ -55,6 +56,9 @@ const HobbyForm = ({ cancelUrl }) => {
 
   const handleRemoveEvent = id => {
     const filteredEvents = hobbyEventData.filter(item => item.id !== id);
+    if (isNumber(id)) {
+      dispatch(ActionCreators.setRemovedEvents(id));
+    }
     dispatch(ActionCreators.removeHobbyEvent(filteredEvents));
   };
 
@@ -100,7 +104,45 @@ const HobbyForm = ({ cancelUrl }) => {
 
   const submitHandler = event => {
     event.preventDefault();
-    dispatch(ActionCreators.createHobby(formState.hobby));
+
+    const postedHobby = { ...formState.hobby };
+    if (
+      postedHobby.cover_image.length < 300 ||
+      postedHobby.cover_image === null
+    ) {
+      delete postedHobby.cover_image;
+    }
+
+    dispatch(ActionCreators.updateHobby(formState.hobby.id, postedHobby));
+    const postedEvents = [...formState.hobbyEvents];
+    postedEvents.forEach((item, index) => {
+      for (const key in item) {
+        if (key === 'start_date' || key === 'end_date') {
+          postedEvents[index] = {
+            ...postedEvents[index],
+            [key]: item[key].format('YYYY-MM-DD')
+          };
+        } else if (key === 'start_time' || key === 'end_time') {
+          postedEvents[index] = {
+            ...postedEvents[index],
+            [key]: item[key].format('HH:mm')
+          };
+        }
+      }
+      if (isNumber(item.id)) {
+        console.log('No hobbies to edit');
+      } else {
+        dispatch(
+          ActionCreators.createHobbyEvent({
+            ...postedEvents[index],
+            hobby: formState.hobby.id
+          })
+        );
+      }
+    });
+    formState.removedEvents.forEach(item => {
+      dispatch(ActionCreators.deleteHobbyEvent(item));
+    });
   };
 
   useDeepCompareEffect(() => {
@@ -139,8 +181,10 @@ const HobbyForm = ({ cancelUrl }) => {
           <TextField
             id="name"
             name="name"
+            value={formState.hobby.name}
+            placeholder={''}
             required
-            label="Name"
+            label=""
             margin="dense"
             variant="outlined"
             onChange={handleChange}
@@ -151,7 +195,7 @@ const HobbyForm = ({ cancelUrl }) => {
       <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
-            <InputLabel>Location</InputLabel>
+            <InputLabel>Change location</InputLabel>
             <Select
               id="location"
               name="location"
@@ -199,7 +243,8 @@ const HobbyForm = ({ cancelUrl }) => {
           <TextField
             id="description"
             name="description"
-            label="Description"
+            label=""
+            value={formState.hobby.description}
             margin="dense"
             variant="outlined"
             onChange={handleChange}
@@ -210,7 +255,7 @@ const HobbyForm = ({ cancelUrl }) => {
       <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
-            <InputLabel>Organizer</InputLabel>
+            <InputLabel>Change organizer</InputLabel>
             <Select
               id="organizer"
               name="organizer"
@@ -284,4 +329,4 @@ const HobbyForm = ({ cancelUrl }) => {
   );
 };
 
-export default HobbyForm;
+export default HobbyEditForm;

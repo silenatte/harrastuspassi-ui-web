@@ -1,9 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import { FormControl, Grid, Button, Box } from '@material-ui/core';
-import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker
+} from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import ActionCreators from '../../actions';
 import { useActions } from '../../hooks';
@@ -14,8 +17,8 @@ const useStyles = makeStyles(theme => ({
     width: 600,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
+    padding: theme.spacing(2, 4, 3)
+  }
 }));
 
 const HobbyEventModalButton = ({ handleNewEvent }) => {
@@ -25,8 +28,14 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
     end_date: null,
     start_time: null,
     end_time: null,
-    id: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-  }
+    id:
+      Math.random()
+        .toString(36)
+        .substring(2, 15) +
+      Math.random()
+        .toString(36)
+        .substring(2, 15)
+  };
   const [hobbyEventData, setHobbyEventData] = React.useState(initialState);
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
@@ -36,16 +45,27 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
     setHobbyEventData(initialState);
     actions.setHobbyEventsFormData(hobbyEventData);
     setOpen(false);
-  }
+  };
 
   return (
     <React.Fragment>
-      <Button variant="contained" component="span" color="primary" onClick={() => setOpen(true)}>New event</Button>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
+      <Button
+        variant="contained"
+        component="span"
+        color="primary"
+        onClick={() => setOpen(true)}
       >
-        <div style={{ top: '30%', left: '50%', transform: 'translate(-50%, -30%)' }} className={classes.paper}>
+        New event
+      </Button>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <div
+          style={{
+            top: '30%',
+            left: '50%',
+            transform: 'translate(-50%, -30%)'
+          }}
+          className={classes.paper}
+        >
           <h2>Add new event</h2>
           <form>
             <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -67,7 +87,12 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
                       id="start_date"
                       label="Start date"
                       value={hobbyEventData.start_date}
-                      onChange={(date => setHobbyEventData({ ...hobbyEventData, start_date: date }))}
+                      onChange={date =>
+                        setHobbyEventData({
+                          ...hobbyEventData,
+                          start_date: date
+                        })
+                      }
                     />
                   </FormControl>
                 </Grid>
@@ -82,10 +107,11 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
                       id="date-picker-inline"
                       label="End date"
                       value={hobbyEventData.end_date}
-                      onChange={(date => setHobbyEventData({ ...hobbyEventData, end_date: date }))}
+                      onChange={date =>
+                        setHobbyEventData({ ...hobbyEventData, end_date: date })
+                      }
                     />
                   </FormControl>
-
                 </Grid>
               </Grid>
 
@@ -106,7 +132,12 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
                       margin="normal"
                       label="Start time"
                       value={hobbyEventData.start_time}
-                      onChange={(time => setHobbyEventData({ ...hobbyEventData, start_time: time }))}
+                      onChange={time =>
+                        setHobbyEventData({
+                          ...hobbyEventData,
+                          start_time: time
+                        })
+                      }
                     />
                   </FormControl>
                 </Grid>
@@ -120,20 +151,24 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
                       margin="normal"
                       label="End time"
                       value={hobbyEventData.end_time}
-                      onChange={(time => setHobbyEventData({ ...hobbyEventData, end_time: time }))}
+                      onChange={time =>
+                        setHobbyEventData({ ...hobbyEventData, end_time: time })
+                      }
                     />
                   </FormControl>
-
                 </Grid>
               </Grid>
 
               <Box mt={5}>
-                <Grid container justify="flex-end" >
+                <Grid container justify="flex-end">
                   <Grid item>
-                    <Button onClick={() => setOpen(false)}>
-                      Cancel
-                    </Button>
-                    <Button variant="contained" color="primary" type="button" onClick={handleSave}>
+                    <Button onClick={() => setOpen(false)}>Cancel</Button>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="button"
+                      onClick={handleSave}
+                    >
                       Save
                     </Button>
                   </Grid>

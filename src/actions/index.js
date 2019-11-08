@@ -12,7 +12,7 @@ const ActionCreators = {
   ...categoryActions,
   ...organizerActions,
   ...locationActions,
-  ...formActions,
+  ...formActions
 };
 
 export default ActionCreators;
