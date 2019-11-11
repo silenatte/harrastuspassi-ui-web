@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   FormControl,
   TextField,
@@ -15,7 +15,6 @@ import {
   Typography
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
 import OrganizerModalButton from './OrganizerModalButton';
 import LocationModalButton from './LocationModalButton';
@@ -56,7 +55,7 @@ const HobbyForm = ({ cancelUrl }) => {
   };
 
   const handleRemoveEvent = id => {
-    const filteredEvents = hobbyEventData.filter(item => item.id !== id);
+    const filteredEvents = formState.hobbyEvents.filter(item => item.id !== id);
     dispatch(ActionCreators.removeHobbyEvent(filteredEvents));
   };
 
@@ -85,7 +84,7 @@ const HobbyForm = ({ cancelUrl }) => {
     <HobbyEventItem
       data={hobbyEvent}
       key={index}
-      handleRemoveEvent={i => handleRemoveEvent(i)}
+      handleRemoveEvent={() => handleRemoveEvent(hobbyEvent.id)}
     />
   ));
 

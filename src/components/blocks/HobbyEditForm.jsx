@@ -24,6 +24,7 @@ import HobbyEventItem from './HobbyEventItem';
 import ActionCreators from '../../actions';
 import { useDeepCompareEffect } from '../../hooks';
 import { isNumber, isString } from 'util';
+import { updateHobbyEvent } from '../../actions/hobbyActions';
 
 const HobbyEditForm = ({ cancelUrl }) => {
   const categoryState = useSelector(state => state.categories);
@@ -57,7 +58,8 @@ const HobbyEditForm = ({ cancelUrl }) => {
   };
 
   const handleRemoveEvent = id => {
-    const filteredEvents = hobbyEventData.filter(item => item.id !== id);
+    console.log(id);
+    const filteredEvents = formState.hobbyEvents.filter(item => item.id !== id);
     if (isNumber(id)) {
       dispatch(ActionCreators.setRemovedEvents(id));
     }
@@ -89,7 +91,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
     <HobbyEventItem
       data={hobbyEvent}
       key={index}
-      handleRemoveEvent={i => handleRemoveEvent(i)}
+      handleRemoveEvent={() => handleRemoveEvent(hobbyEvent.id)}
     />
   ));
 

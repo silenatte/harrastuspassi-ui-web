@@ -7,7 +7,8 @@ import {
 import {
   CREATE_HOBBY_SUCCESS,
   FETCH_HOBBY_SUCCESS,
-  FETCH_HOBBYEVENTS_SUCCESS
+  FETCH_HOBBYEVENTS_SUCCESS,
+  FETCH_HOBBIES_SUCCESS
 } from '../actions/hobbyActions';
 import moment from 'moment';
 
@@ -50,6 +51,7 @@ const hobbyReducer = (state = INITIAL_STATE, action) => {
       };
     case FETCH_HOBBYEVENTS_SUCCESS:
       // eslint-disable-next-line no-case-declarations
+      console.log(action.payload);
       const events = action.payload.map(event => {
         return {
           ...event,
@@ -68,6 +70,8 @@ const hobbyReducer = (state = INITIAL_STATE, action) => {
         ...state,
         removedEvents: [...state.removedEvents, action.payload]
       };
+    case FETCH_HOBBIES_SUCCESS:
+      return INITIAL_STATE;
     default:
       return state;
   }
