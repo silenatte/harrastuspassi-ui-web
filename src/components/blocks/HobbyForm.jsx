@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   FormControl,
   TextField,
@@ -28,6 +29,7 @@ const HobbyForm = ({ cancelUrl }) => {
   const organizerState = useSelector(state => state.organizers);
   const locationState = useSelector(state => state.locations);
   const formState = useSelector(state => state.formData);
+  const history = useHistory();
 
   const [hobbyEventData, setHobbyEventData] = React.useState([]);
 
@@ -129,6 +131,7 @@ const HobbyForm = ({ cancelUrl }) => {
           })
         );
       });
+      history.push('/');
     }
   }, [formState.hobby.id]);
 

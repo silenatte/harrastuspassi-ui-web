@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   FormControl,
   TextField,
@@ -29,6 +30,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
   const organizerState = useSelector(state => state.organizers);
   const locationState = useSelector(state => state.locations);
   const formState = useSelector(state => state.formData);
+  const history = useHistory();
 
   const [hobbyEventData, setHobbyEventData] = React.useState([]);
 
@@ -143,6 +145,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
     formState.removedEvents.forEach(item => {
       dispatch(ActionCreators.deleteHobbyEvent(item));
     });
+    history.push('/');
   };
 
   useDeepCompareEffect(() => {

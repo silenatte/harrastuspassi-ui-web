@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppBar, Toolbar, Typography, makeStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import ActionCreators from '../../actions';
 
 const useStyles = makeStyles({
   title: {
-    flexGrow: 1
+    flexGrow: 1,
+    textDecoration: 'none'
   },
   appBar: {
     marginBottom: '50px'
@@ -24,9 +26,11 @@ const TopBar = () => {
   return (
     <AppBar className={classes.appBar} position="static">
       <Toolbar>
-        <Typography className={classes.title} variant="h6">
-          Harrastuspassi
-        </Typography>
+        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+          <Typography className={classes.title} variant="h6">
+            Harrastuspassi
+          </Typography>
+        </Link>
         {authState.user ? (
           <Typography variant="body1">
             {authState.user.firstName} {authState.user.lastName}
