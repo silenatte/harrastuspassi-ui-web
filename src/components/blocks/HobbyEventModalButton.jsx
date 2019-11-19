@@ -55,7 +55,7 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
         color="primary"
         onClick={() => setOpen(true)}
       >
-        New event
+        Uusi tapahtuma
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <div
@@ -66,7 +66,7 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
           }}
           className={classes.paper}
         >
-          <h2>Add new event</h2>
+          <h2>Lisää uusi tapahtuma</h2>
           <form>
             <MuiPickersUtilsProvider utils={MomentUtils}>
               <Grid

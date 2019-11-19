@@ -142,7 +142,7 @@ const HobbyForm = ({ cancelUrl }) => {
             id="name"
             name="name"
             required
-            label="Name"
+            label="Nimi"
             margin="dense"
             variant="outlined"
             onChange={handleChange}
@@ -153,7 +153,7 @@ const HobbyForm = ({ cancelUrl }) => {
       <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
-            <InputLabel>Location</InputLabel>
+            <InputLabel>Sijainti</InputLabel>
             <Select
               id="location"
               name="location"
@@ -186,10 +186,10 @@ const HobbyForm = ({ cancelUrl }) => {
                 className={classes.button}
               >
                 <ImageSearchIcon className={classes.leftIcon} />
-                Select image
+                Valitse kuva
               </Button>
               <p>
-                {formState.hobby.cover_image ? 'Image selected' : 'No image'}
+                {formState.hobby.cover_image ? 'Kuva valittu' : 'Ei kuvaa'}
               </p>
             </div>
           </label>
@@ -201,7 +201,7 @@ const HobbyForm = ({ cancelUrl }) => {
           <TextField
             id="description"
             name="description"
-            label="Description"
+            label="Kuvaus"
             margin="dense"
             variant="outlined"
             onChange={handleChange}
@@ -212,7 +212,7 @@ const HobbyForm = ({ cancelUrl }) => {
       <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
-            <InputLabel>Organizer</InputLabel>
+            <InputLabel>Järjestäjä</InputLabel>
             <Select
               id="organizer"
               name="organizer"
@@ -228,7 +228,7 @@ const HobbyForm = ({ cancelUrl }) => {
 
       <Box mt={4}>
         <FormControl fullWidth>
-          <InputLabel htmlFor="select-multiple-chip">Categories</InputLabel>
+          <InputLabel htmlFor="select-multiple-chip">Kategoriat</InputLabel>
           <Select
             multiple
             name="categories"
@@ -260,7 +260,7 @@ const HobbyForm = ({ cancelUrl }) => {
       <Box mt={4}>
         <Grid container justify="space-between">
           <Grid item>
-            <Typography variant="h4">Hobby events</Typography>
+            <Typography variant="h4">Tapahtumat</Typography>
           </Grid>
           <Grid item>
             <HobbyEventModalButton handleNewEvent={handleNewEvent} />
@@ -274,10 +274,10 @@ const HobbyForm = ({ cancelUrl }) => {
         <Grid container justify="flex-end">
           <Grid item>
             <Button component={Link} to={cancelUrl}>
-              Cancel
+              Peruuta
             </Button>
             <Button variant="contained" color="primary" type="submit">
-              Save
+              Tallenna
             </Button>
           </Grid>
         </Grid>

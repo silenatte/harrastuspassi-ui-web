@@ -21,7 +21,7 @@ const HobbyEditView = props => {
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h3">Edit hobby</Typography>
+      <Typography variant="h3">Muokkaa harrastusta</Typography>
       <HobbyEditForm cancelUrl="/" />
     </Container>
   );

@@ -17,7 +17,7 @@ const HobbyCreateView = () => {
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h3">Add new Hobby</Typography>
+      <Typography variant="h3">Lisää uusi harrastus</Typography>
       <HobbyForm cancelUrl="/" />
     </Container>
   );

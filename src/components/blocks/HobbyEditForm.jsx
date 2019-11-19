@@ -32,6 +32,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
   const locationState = useSelector(state => state.locations);
   const formState = useSelector(state => state.formData);
   const history = useHistory();
+  const locationID = formState.hobby.location;
 
   const [hobbyEventData, setHobbyEventData] = React.useState([]);
 
@@ -186,7 +187,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
           <TextField
             id="name"
             name="name"
-            value={formState.hobby.name}
+            value={formState.hobby.name || ''}
             placeholder={''}
             required
             label=""
@@ -200,11 +201,11 @@ const HobbyEditForm = ({ cancelUrl }) => {
       <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
-            <InputLabel>Change location</InputLabel>
+            <InputLabel>Vaihda sijainti</InputLabel>
             <Select
               id="location"
               name="location"
-              value={formState.hobby.location}
+              value={locationID || 0}
               onChange={handleChange}
             >
               {locationListItems}
@@ -233,10 +234,10 @@ const HobbyEditForm = ({ cancelUrl }) => {
                 className={classes.button}
               >
                 <ImageSearchIcon className={classes.leftIcon} />
-                Select image
+                Valitse kuva
               </Button>
               <p>
-                {formState.hobby.cover_image ? 'Image selected' : 'No image'}
+                {formState.hobby.cover_image ? 'Kuva valittu' : 'Ei kuvaa'}
               </p>
             </div>
           </label>
@@ -249,7 +250,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
             id="description"
             name="description"
             label=""
-            value={formState.hobby.description}
+            value={formState.hobby.description || ''}
             margin="dense"
             variant="outlined"
             onChange={handleChange}
@@ -260,11 +261,11 @@ const HobbyEditForm = ({ cancelUrl }) => {
       <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
-            <InputLabel>Change organizer</InputLabel>
+            <InputLabel>Vaihda järjestäjä</InputLabel>
             <Select
               id="organizer"
               name="organizer"
-              value={formState.hobby.organizer}
+              value={formState.hobby.organizer || 0}
               onChange={handleChange}
             >
               {organizerListItems}
@@ -276,7 +277,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
 
       <Box mt={4}>
         <FormControl fullWidth>
-          <InputLabel htmlFor="select-multiple-chip">Categories</InputLabel>
+          <InputLabel htmlFor="select-multiple-chip">Kategoriat</InputLabel>
           <Select
             multiple
             name="categories"
@@ -308,7 +309,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
       <Box mt={4}>
         <Grid container justify="space-between">
           <Grid item>
-            <Typography variant="h4">Hobby events</Typography>
+            <Typography variant="h4">Tapahtumat</Typography>
           </Grid>
           <Grid item>
             <HobbyEventModalButton handleNewEvent={handleNewEvent} />
@@ -322,10 +323,10 @@ const HobbyEditForm = ({ cancelUrl }) => {
         <Grid container justify="flex-end">
           <Grid item>
             <Button component={Link} to={cancelUrl}>
-              Cancel
+              Peruuta
             </Button>
             <Button variant="contained" color="primary" type="submit">
-              Save
+              Tallenna
             </Button>
           </Grid>
         </Grid>

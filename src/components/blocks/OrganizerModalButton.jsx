@@ -57,7 +57,7 @@ const OrganizerModalButton = () => {
             <FormControl fullWidth>
               <TextField
                 required
-                label="Name"
+                label="Nimi"
                 margin="dense"
                 variant="outlined"
                 onChange={(event) => setOrganizerData({ name: event.target.value })}

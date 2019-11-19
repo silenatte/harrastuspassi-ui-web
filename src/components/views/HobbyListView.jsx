@@ -44,7 +44,7 @@ const HobbyListView = () => {
     <Container maxWidth="sm">
       <Grid container>
         <Grid item xs={8}>
-          <Typography variant="h3">Hobbies</Typography>
+          <Typography variant="h3">Harrastukset</Typography>
         </Grid>
         <Grid item xs={4} className={classes.addHobbyContainer}>
           <Button
@@ -54,7 +54,7 @@ const HobbyListView = () => {
             component={Link}
             to="/hobbies/new"
           >
-            New hobby
+            Uusi harrastus
           </Button>
         </Grid>
       </Grid>
