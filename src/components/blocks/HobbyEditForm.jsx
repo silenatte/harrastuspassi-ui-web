@@ -112,8 +112,8 @@ const HobbyEditForm = ({ cancelUrl }) => {
 
     const postedHobby = { ...formState.hobby };
     if (
-      postedHobby.cover_image.length < 300 ||
-      postedHobby.cover_image === null
+      postedHobby.cover_image === null ||
+      postedHobby.cover_image.length < 300
     ) {
       delete postedHobby.cover_image;
     }
@@ -236,9 +236,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
                 <ImageSearchIcon className={classes.leftIcon} />
                 Valitse kuva
               </Button>
-              <p>
-                {formState.hobby.cover_image ? 'Kuva valittu' : 'Ei kuvaa'}
-              </p>
+              <p>{formState.hobby.cover_image ? 'Kuva valittu' : 'Ei kuvaa'}</p>
             </div>
           </label>
         </FormControl>
