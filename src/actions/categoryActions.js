@@ -9,7 +9,7 @@ const fetchCategories = () => ({
   [API]: {
     types: [FETCH_CATEGORIES, FETCH_CATEGORIES_SUCCESS, FETCH_CATEGORIES_FAILURE],
     method: GET,
-    url: `${API_URL}/hobbycategories/`
+    url: `${API_URL}hobbycategories/`
   }
 });
 

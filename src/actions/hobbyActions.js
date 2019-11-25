@@ -41,7 +41,7 @@ const fetchHobbies = () => ({
   [API]: {
     types: [FETCH_HOBBIES, FETCH_HOBBIES_SUCCESS, FETCH_HOBBIES_FAILURE],
     method: GET,
-    url: `${API_URL}/hobbies/`
+    url: `${API_URL}hobbies/`
   }
 });
 
@@ -49,7 +49,7 @@ const fetchHobby = id => ({
   [API]: {
     types: [FETCH_HOBBY, FETCH_HOBBY_SUCCESS, FETCH_HOBBY_FAILURE],
     method: GET,
-    url: `${API_URL}/hobbies/${id}`
+    url: `${API_URL}hobbies/${id}`
   }
 });
 
@@ -61,7 +61,7 @@ const fetchHobbyEvents = hobbyId => ({
       FETCH_HOBBYEVENTS_FAILURE
     ],
     method: GET,
-    url: `${API_URL}/hobbyevents/?hobby=${hobbyId}`
+    url: `${API_URL}hobbyevents/?hobby=${hobbyId}`
   }
 });
 
@@ -69,7 +69,7 @@ const createHobby = hobby_payload => ({
   [API]: {
     types: [CREATE_HOBBY, CREATE_HOBBY_SUCCESS, CREATE_HOBBY_FAILURE],
     method: POST,
-    url: `${API_URL}/hobbies/`,
+    url: `${API_URL}hobbies/`,
     data: hobby_payload
   }
 });
@@ -82,7 +82,7 @@ const createHobbyEvent = payload => ({
       CREATE_HOBBYEVENT_FAILURE
     ],
     method: POST,
-    url: `${API_URL}/hobbyevents/`,
+    url: `${API_URL}hobbyevents/`,
     data: payload
   }
 });
@@ -91,7 +91,7 @@ const updateHobby = (id, data) => ({
   [API]: {
     types: [UPDATE_HOBBY, UPDATE_HOBBY_SUCCESS, UPDATE_HOBBY_FAILURE],
     method: PUT,
-    url: `${API_URL}/hobbies/${id}/`,
+    url: `${API_URL}hobbies/${id}/`,
     data
   }
 });
@@ -104,7 +104,7 @@ const updateHobbyEvent = (id, data) => ({
       UPDATE_HOBBYEVENT_FAILURE
     ],
     method: PUT,
-    url: `${API_URL}/hobbyEvents/${id}/`,
+    url: `${API_URL}hobbyEvents/${id}/`,
     data
   }
 });
@@ -113,7 +113,7 @@ const deleteHobby = hobby_id => ({
   [API]: {
     types: [DELETE_HOBBY, DELETE_HOBBY_SUCCESS, DELETE_HOBBY_FAILURE],
     method: DELETE,
-    url: `${API_URL}/hobbies/${hobby_id}/`,
+    url: `${API_URL}hobbies/${hobby_id}/`,
     context: { hobby_id: hobby_id }
   }
 });
@@ -126,7 +126,7 @@ const deleteHobbyEvent = id => ({
       DELETE_HOBBYEVENT_FAILURE
     ],
     method: DELETE,
-    url: `${API_URL}/hobbyevents/${id}/`,
+    url: `${API_URL}hobbyevents/${id}/`,
     context: { hobbyevent_id: id }
   }
 });

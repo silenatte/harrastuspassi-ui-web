@@ -13,7 +13,7 @@ const fetchOrganizers = () => ({
   [API]: {
     types: [FETCH_ORGANIZERS, FETCH_ORGANIZERS_SUCCESS, FETCH_ORGANIZERS_FAILURE],
     method: GET,
-    url: `${API_URL}/organizers/`
+    url: `${API_URL}organizers/`
   }
 });
 
@@ -21,7 +21,7 @@ const createOrganizer = organizer_payload => ({
   [API]: {
     types: [CREATE_ORGANIZER, CREATE_ORGANIZER_SUCCESS, CREATE_ORGANIZER_FAILURE],
     method: POST,
-    url: `${API_URL}/organizers/`,
+    url: `${API_URL}organizers/`,
     data: organizer_payload,
   }
 });

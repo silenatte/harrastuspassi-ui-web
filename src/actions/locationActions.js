@@ -13,7 +13,7 @@ const fetchLocations = () => ({
   [API]: {
     types: [FETCH_LOCATIONS, FETCH_LOCATIONS_SUCCESS, FETCH_LOCATIONS_FAILURE],
     method: GET,
-    url: `${API_URL}/locations/`
+    url: `${API_URL}locations/`
   }
 });
 
@@ -21,7 +21,7 @@ const createLocation = data => ({
   [API]: {
     types: [CREATE_LOCATION, CREATE_LOCATION_SUCCESS, CREATE_LOCATION_FAILURE],
     method: POST,
-    url: `${API_URL}/locations/`,
+    url: `${API_URL}locations/`,
     data: data,
   }
 });
