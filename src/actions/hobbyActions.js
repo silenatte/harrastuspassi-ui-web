@@ -49,7 +49,7 @@ const fetchHobby = id => ({
   [API]: {
     types: [FETCH_HOBBY, FETCH_HOBBY_SUCCESS, FETCH_HOBBY_FAILURE],
     method: GET,
-    url: `${API_URL}hobbies/${id}`
+    url: `${API_URL}hobbies/${id}/`
   }
 });
 
