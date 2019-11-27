@@ -5,7 +5,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import moment from 'moment';
 
 const HobbyEventItem = ({ data, handleRemoveEvent }) => {
-  console.log(data);
   return (
     <Box mt={4}>
       <Grid container direction="row" spacing={3} style={{ flexWrap: 'nowrap' }}>
