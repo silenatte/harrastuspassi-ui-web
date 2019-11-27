@@ -34,7 +34,6 @@ const HobbyEditForm = ({ cancelUrl }) => {
   const locationID = formState.hobby.location;
 
   const [hobbyEventData, setHobbyEventData] = React.useState([]);
-
   const dispatch = useDispatch();
   const handleChange = event => {
     switch (event.target.name) {
@@ -150,33 +149,6 @@ const HobbyEditForm = ({ cancelUrl }) => {
     history.push('/');
   };
 
-  useDeepCompareEffect(() => {
-    const postedEvents = [...formState.hobbyEvents];
-    if (formState.hobby.id) {
-      postedEvents.forEach((object, index) => {
-        for (const key in object) {
-          if (key === 'start_date' || key === 'end_date') {
-            postedEvents[index] = {
-              ...postedEvents[index],
-              [key]: object[key].format('YYYY-MM-DD')
-            };
-          } else if (key === 'start_time' || key === 'end_time') {
-            postedEvents[index] = {
-              ...postedEvents[index],
-              [key]: object[key].format('HH:mm')
-            };
-          }
-        }
-        dispatch(
-          ActionCreators.createHobbyEvent({
-            ...postedEvents[index],
-            hobby: formState.hobby.id
-          })
-        );
-      });
-    }
-  }, [formState.hobby.id]);
-
   return (
     <form onSubmit={submitHandler}>
       <Box mt={4}>
@@ -289,7 +261,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
                   <Chip
                     key={value}
                     label={
-                      categoryState.categories.find(o => o.id === value).name
+                      (categoryState.categories.find(o => o.id === value) || {}).name
                     }
                   />
                 ))}
