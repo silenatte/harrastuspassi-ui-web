@@ -2,7 +2,8 @@ import {
   DELETE_HOBBY_SUCCESS,
   FETCH_HOBBIES,
   FETCH_HOBBIES_SUCCESS,
-  FETCH_HOBBIES_FAILURE
+  FETCH_HOBBIES_FAILURE,
+  CREATE_HOBBY_SUCCESS
 } from '../actions/hobbyActions';
 
 const INITIAL_STATE = {
@@ -12,7 +13,6 @@ const INITIAL_STATE = {
 };
 
 const hobbyReducer = (state = INITIAL_STATE, action) => {
-  console.log('action', action);
   let error = null;
   switch (action.type) {
     case FETCH_HOBBIES:
@@ -45,6 +45,11 @@ const hobbyReducer = (state = INITIAL_STATE, action) => {
         ...state,
         hobbies: hobbies
       };
+    case CREATE_HOBBY_SUCCESS:
+      return {
+        ...state,
+        hobbies: [...state.hobbies, action.payload]
+      }
     default:
       return state;
   }

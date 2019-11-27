@@ -6,6 +6,7 @@ import store from './store';
 import HobbyCreateView from './components/views/HobbyCreateView';
 import HobbyListView from './components/views/HobbyListView';
 import TopBar from './components/blocks/TopBar';
+import HobbyEditView from './components/views/HobbyEditView';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <TopBar />
         <Route path="/hobbies/new" component={HobbyCreateView} />
         <Route path="/" exact component={HobbyListView} />
+        <Route path="/hobbies/edit/:id" exact component={HobbyEditView} />
       </Router>
     </Provider>
   );
