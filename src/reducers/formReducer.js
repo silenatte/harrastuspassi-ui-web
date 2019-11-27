@@ -51,7 +51,6 @@ const hobbyReducer = (state = INITIAL_STATE, action) => {
       };
     case FETCH_HOBBYEVENTS_SUCCESS:
       // eslint-disable-next-line no-case-declarations
-      console.log(action.payload);
       const events = action.payload.map(event => {
         return {
           ...event,

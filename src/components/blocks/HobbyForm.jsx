@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import {
@@ -90,10 +90,10 @@ const HobbyForm = ({ cancelUrl }) => {
 
   const useStyles = makeStyles(theme => ({
     button: {
-      margin: theme.spacing.unit
+      margin: theme.spacing(1)
     },
     leftIcon: {
-      marginRight: theme.spacing.unit
+      marginRight: theme.spacing(1)
     }
   }));
 
@@ -106,10 +106,9 @@ const HobbyForm = ({ cancelUrl }) => {
 
   useDeepCompareEffect(() => {
     const postedEvents = [...formState.hobbyEvents];
-    console.log('DEEPCOMPARE EFFECT: ', formState.hobbyQueryState);
     if (formState.hobby.id) {
-      console.log('INSIDE IF NAO');
       postedEvents.forEach((object, index) => {
+        /* eslint-disable no-unused-vars */
         for (const key in object) {
           if (key === 'start_date' || key === 'end_date') {
             postedEvents[index] = {
@@ -157,7 +156,7 @@ const HobbyForm = ({ cancelUrl }) => {
             <Select
               id="location"
               name="location"
-              value={formState.hobby.location}
+              value={formState.hobby.location || ''}
               onChange={handleChange}
             >
               {locationListItems}
@@ -216,7 +215,7 @@ const HobbyForm = ({ cancelUrl }) => {
             <Select
               id="organizer"
               name="organizer"
-              value={formState.hobby.organizer}
+              value={formState.hobby.organizer || ''}
               onChange={handleChange}
             >
               {organizerListItems}

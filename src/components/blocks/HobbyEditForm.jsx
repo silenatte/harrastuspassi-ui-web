@@ -23,8 +23,7 @@ import HobbyEventModalButton from './HobbyEventModalButton';
 import HobbyEventItem from './HobbyEventItem';
 import ActionCreators from '../../actions';
 import { useDeepCompareEffect } from '../../hooks';
-import { isNumber, isString } from 'util';
-import { updateHobbyEvent } from '../../actions/hobbyActions';
+import { isNumber } from 'util';
 
 const HobbyEditForm = ({ cancelUrl }) => {
   const categoryState = useSelector(state => state.categories);
@@ -59,7 +58,6 @@ const HobbyEditForm = ({ cancelUrl }) => {
   };
 
   const handleRemoveEvent = id => {
-    console.log(id);
     const filteredEvents = formState.hobbyEvents.filter(item => item.id !== id);
     if (isNumber(id)) {
       dispatch(ActionCreators.setRemovedEvents(id));
@@ -98,10 +96,10 @@ const HobbyEditForm = ({ cancelUrl }) => {
 
   const useStyles = makeStyles(theme => ({
     button: {
-      margin: theme.spacing.unit
+      margin: theme.spacing(1)
     },
     leftIcon: {
-      marginRight: theme.spacing.unit
+      marginRight: theme.spacing(1)
     }
   }));
 
@@ -121,6 +119,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
     dispatch(ActionCreators.updateHobby(formState.hobby.id, postedHobby));
     const postedEvents = [...formState.hobbyEvents];
     postedEvents.forEach((item, index) => {
+      /* eslint-disable no-unused-vars */
       for (const key in item) {
         if (key === 'start_date' || key === 'end_date') {
           postedEvents[index] = {
@@ -153,9 +152,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
 
   useDeepCompareEffect(() => {
     const postedEvents = [...formState.hobbyEvents];
-    console.log('DEEPCOMPARE EFFECT: ', formState.hobbyQueryState);
     if (formState.hobby.id) {
-      console.log('INSIDE IF NAO');
       postedEvents.forEach((object, index) => {
         for (const key in object) {
           if (key === 'start_date' || key === 'end_date') {
@@ -205,7 +202,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
             <Select
               id="location"
               name="location"
-              value={locationID || 0}
+              value={locationID || ''}
               onChange={handleChange}
             >
               {locationListItems}
@@ -263,7 +260,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
             <Select
               id="organizer"
               name="organizer"
-              value={formState.hobby.organizer || 0}
+              value={formState.hobby.organizer || ''}
               onChange={handleChange}
             >
               {organizerListItems}

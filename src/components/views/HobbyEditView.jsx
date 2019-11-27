@@ -9,7 +9,6 @@ import HobbyEditForm from '../blocks/HobbyEditForm';
 const HobbyEditView = props => {
   const dispatch = useDispatch();
   const { id } = props.match.params;
-  console.log('ID: ', id);
   useDeepCompareEffect(() => {
     // initial data fetch
     dispatch(ActionCreators.fetchCategories());
