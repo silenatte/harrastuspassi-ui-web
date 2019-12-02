@@ -19,7 +19,7 @@ const PromotionEditView = props => {
   return (
     <Container maxWidth="sm">
       <Typography variant="h3">Muokkaa etuutta</Typography>
-      <PromotionEditForm cancelUrl="/" />
+      <PromotionEditForm cancelUrl="/promotions" />
     </Container>
   );
 };
