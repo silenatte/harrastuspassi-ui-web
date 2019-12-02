@@ -1,9 +1,9 @@
 import {
+  CREATE_HOBBY_SUCCESS,
   DELETE_HOBBY_SUCCESS,
   FETCH_HOBBIES,
-  FETCH_HOBBIES_SUCCESS,
   FETCH_HOBBIES_FAILURE,
-  CREATE_HOBBY_SUCCESS
+  FETCH_HOBBIES_SUCCESS
 } from '../actions/hobbyActions';
 
 const INITIAL_STATE = {
@@ -49,7 +49,7 @@ const hobbyReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         hobbies: [...state.hobbies, action.payload]
-      }
+      };
     default:
       return state;
   }

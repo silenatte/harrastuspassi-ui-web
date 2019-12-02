@@ -4,6 +4,7 @@ import * as categoryActions from './categoryActions';
 import * as organizerActions from './organizerActions';
 import * as locationActions from './locationActions';
 import * as formActions from './formActions';
+import * as promotionActions from './promotionActions';
 
 // Remember to watch for naming collision
 const ActionCreators = {
@@ -12,7 +13,8 @@ const ActionCreators = {
   ...categoryActions,
   ...organizerActions,
   ...locationActions,
-  ...formActions
+  ...formActions,
+  ...promotionActions
 };
 
 export default ActionCreators;
