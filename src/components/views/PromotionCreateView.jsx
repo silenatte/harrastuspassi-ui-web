@@ -8,7 +8,7 @@ import PromotionForm from '../blocks/PromotionForm';
  */
 export const PromotionCreateView = () => {
   return (
-    <Container>
+    <Container maxWidth="sm">
       <Typography>Etuudet</Typography>
       <PromotionForm />
     </Container>

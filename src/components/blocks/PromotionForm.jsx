@@ -9,7 +9,8 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField
+  TextField,
+  Typography
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
@@ -21,6 +22,8 @@ import PromotionModalButton from './PromotionModalButton';
 import { useDeepCompareEffect } from '../../hooks';
 import { fetchLocations } from '../../actions/locationActions';
 import { fetchOrganizers } from '../../actions/organizerActions';
+import { setBatch } from 'react-redux/lib/utils/batch';
+import { setPromotionFormData } from '../../actions/formActions';
 
 const PromotionForm = () => {
   const organizerState = useSelector(state => state.organizers);
@@ -58,6 +61,11 @@ const PromotionForm = () => {
   useDeepCompareEffect(() => {
     dispatch(fetchLocations());
     dispatch(fetchOrganizers());
+    dispatch(setPromotionFormData('start_time', moment()));
+    dispatch(setPromotionFormData('end_time', moment()));
+    dispatch(setPromotionFormData('start_date', moment()));
+    dispatch(setPromotionFormData('end_date', moment()));
+    
   }, []);
   
   const locationListItems = locationState.locations.map((location, index) => (
@@ -127,7 +135,7 @@ const PromotionForm = () => {
             value={formState.promotion.name || ''}
             placeholder={''}
             required
-            label=""
+            label="Nimi"
             margin="dense"
             variant="outlined"
             onChange={handleChange}
@@ -186,7 +194,7 @@ const PromotionForm = () => {
           <TextField
             id="description"
             name="description"
-            label=""
+            label="Kuvaus"
             value={formState.promotion.description || ''}
             margin="dense"
             variant="outlined"
@@ -208,7 +216,7 @@ const PromotionForm = () => {
           />
         </FormControl>
       </Box>
-      <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
+      <Box mt={4} style={{ display: 'inline-flex', marginBottom: 30 }} width={1}>
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
             <InputLabel>Vaihda järjestäjä</InputLabel>
@@ -224,13 +232,16 @@ const PromotionForm = () => {
         </div>
         <OrganizerModalButton />
       </Box>
+      <Typography variant="h6">Voimassaoloaika</Typography>
       <Box mt={4}>
+        
         <Grid
           container
           direction="row"
           spacing={3}
           style={{ flexWrap: 'nowrap' }}
         >
+          
           <Grid item>
             <TextField
               value={
@@ -239,7 +250,7 @@ const PromotionForm = () => {
                   : 0
               }
               variant="outlined"
-              label="Start date"
+              label="Alkamispvm"
               InputProps={{
                 readOnly: true
               }}
@@ -252,7 +263,7 @@ const PromotionForm = () => {
                     : 0
                 }
                 variant="outlined"
-                label="Start time"
+                label="Alkamisaika"
                 InputProps={{
                   readOnly: true
                 }}
@@ -267,7 +278,7 @@ const PromotionForm = () => {
                   : 0
               }
               variant="outlined"
-              label="End date"
+              label="Loppumispvm"
               InputProps={{
                 readOnly: true
               }}
@@ -280,7 +291,7 @@ const PromotionForm = () => {
                     : 0
                 }
                 variant="outlined"
-                label="End time"
+                label="Loppumisaika"
                 InputProps={{
                   readOnly: true
                 }}
