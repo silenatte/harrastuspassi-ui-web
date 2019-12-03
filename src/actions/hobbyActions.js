@@ -41,7 +41,7 @@ const fetchHobbies = () => ({
   [API]: {
     types: [FETCH_HOBBIES, FETCH_HOBBIES_SUCCESS, FETCH_HOBBIES_FAILURE],
     method: GET,
-    url: `${API_URL}hobbies/?can_edit=true`
+    url: `${API_URL}hobbies/`
   }
 });
 

@@ -114,7 +114,7 @@ const PromotionForm = () => {
     dispatch(
       ActionCreators.createPromotion(postedPromotion)
     );
-    history.push('/');
+    history.push('/promotions');
   };
 
   return (

@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Container, Grid, List, Typography } from '@material-ui/core';
-import { fetchPromotions } from '../../actions/promotionActions';
+import {
+  deletePromotion,
+  fetchPromotions
+} from '../../actions/promotionActions';
 import PromotionListItem from '../blocks/PromotionListItem';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
@@ -32,7 +35,7 @@ const PromotionListView = () => {
         <PromotionListItem
           key={promotion.id}
           promotion={promotion}
-          deleteHandler={() => console.log('delete')}
+          deleteHandler={() => dispatch(deletePromotion(promotion.id))}
           showControls={true}
         />
       );
