@@ -50,7 +50,7 @@ const PromotionListView = () => {
           color="primary"
           className={classes.addHobbyBtn}
           component={Link}
-          to="/hobbies/new"
+          to="/promotions/new"
         >
           Uusi etuus
         </Button>

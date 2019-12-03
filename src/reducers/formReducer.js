@@ -12,7 +12,10 @@ import {
   FETCH_HOBBIES_SUCCESS
 } from '../actions/hobbyActions';
 import moment from 'moment';
-import { FETCH_PROMOTION_SUCCESS } from '../actions/promotionActions';
+import {
+  FETCH_PROMOTION_SUCCESS,
+  FETCH_PROMOTIONS_SUCCESS
+} from '../actions/promotionActions';
 
 const INITIAL_STATE = {
   hobby: {
@@ -99,6 +102,8 @@ const hobbyReducer = (state = INITIAL_STATE, action) => {
         removedEvents: [...state.removedEvents, action.payload]
       };
     case FETCH_HOBBIES_SUCCESS:
+      return INITIAL_STATE;
+    case FETCH_PROMOTIONS_SUCCESS:
       return INITIAL_STATE;
     default:
       return state;

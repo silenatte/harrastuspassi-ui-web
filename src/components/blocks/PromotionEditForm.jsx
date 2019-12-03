@@ -17,7 +17,7 @@ import OrganizerModalButton from './OrganizerModalButton';
 import LocationModalButton from './LocationModalButton';
 import ActionCreators from '../../actions';
 import moment from 'moment';
-import PromotionEventModalButton from './PromotionModalButton';
+import PromotionModalButton from './PromotionModalButton';
 
 const PromotionEditForm = ({ cancelUrl }) => {
   const organizerState = useSelector(state => state.organizers);
@@ -276,7 +276,7 @@ const PromotionEditForm = ({ cancelUrl }) => {
           </Grid>
         </Grid>
         <br />
-        <PromotionEventModalButton />
+        <PromotionModalButton />
       </Box>
       <Box mt={3} mb={3}>
         <Grid container justify="flex-end">

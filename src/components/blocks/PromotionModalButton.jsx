@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PromotionEventModalButton = () => {
+const PromotionModalButton = () => {
   const promotionEventData = useSelector(state => state.formData.promotion);
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
@@ -166,4 +166,4 @@ const PromotionEventModalButton = () => {
   );
 };
 
-export default PromotionEventModalButton;
+export default PromotionModalButton;

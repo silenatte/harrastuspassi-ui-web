@@ -29,7 +29,7 @@ const fetchPromotions = () => ({
       FETCH_PROMOTIONS_FAILURE
     ],
     method: GET,
-    url: `${API_URL}promotions/`
+    url: `${API_URL}promotions/?can_edit=true`
   }
 });
 
