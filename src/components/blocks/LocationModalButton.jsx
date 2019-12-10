@@ -16,8 +16,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 4, 3)
   }
 }));
-const classes = useStyles();
-const [open, setOpen] = React.useState(false);
+
 const LocationModalButton = () => {
   const [locationData, setLocationData] = React.useState({
     name: '',
@@ -30,8 +29,11 @@ const LocationModalButton = () => {
     }
   });
 
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
   const dispatch = useDispatch();
-  const locationSubmitHandler = () => {
+  const locationSubmitHandler = event => {
     const locationFormData = {
       name: locationData.name,
       address: locationData.address,
