@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Container } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import PromotionForm from '../blocks/PromotionForm';
 
 /**
@@ -12,6 +12,5 @@ export const PromotionCreateView = () => {
       <Typography>Etuudet</Typography>
       <PromotionForm />
     </Container>
-    
   );
 };
