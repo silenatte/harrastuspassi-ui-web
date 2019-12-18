@@ -1,71 +1,54 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import {
-  FormControl,
-  TextField,
+  Box,
   Button,
+  FormControl,
   Grid,
-  Select,
   InputLabel,
   MenuItem,
-  Box,
-  Input,
-  Chip,
-  Typography
+  Select,
+  TextField
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
 import OrganizerModalButton from './OrganizerModalButton';
 import LocationModalButton from './LocationModalButton';
-import HobbyEventModalButton from './HobbyEventModalButton';
-import HobbyEventItem from './HobbyEventItem';
 import ActionCreators from '../../actions';
-import { useDeepCompareEffect } from '../../hooks';
+import moment from 'moment';
+import PromotionModalButton from './PromotionModalButton';
 
-const HobbyForm = ({ cancelUrl }) => {
-  const categoryState = useSelector(state => state.categories);
+const PromotionEditForm = ({ cancelUrl }) => {
   const organizerState = useSelector(state => state.organizers);
   const locationState = useSelector(state => state.locations);
   const formState = useSelector(state => state.formData);
   const history = useHistory();
-
-  const [hobbyEventData, setHobbyEventData] = React.useState([]);
-
+  const locationID = formState.promotion.location;
   const dispatch = useDispatch();
   const handleChange = event => {
-    const reader = new FileReader();
-    const { name, value } = event.target;
     switch (event.target.name) {
       case 'cover_image':
+        const reader = new FileReader();
+        const { name } = event.target;
         reader.readAsDataURL(event.target.files[0]);
         reader.onload = () => {
           const image = reader.result;
-          dispatch(ActionCreators.setFormData(name, image));
+          dispatch(ActionCreators.setPromotionFormData(name, image));
         };
         reader.onerror = () => {
           window.alert('Kuvan käsittelyssä tapahtui virhe!');
         };
         break;
       default:
-        dispatch(ActionCreators.setFormData(name, value));
+        dispatch(
+          ActionCreators.setPromotionFormData(
+            event.target.name,
+            event.target.value
+          )
+        );
     }
   };
-
-  const handleRemoveEvent = id => {
-    const filteredEvents = formState.hobbyEvents.filter(item => item.id !== id);
-    dispatch(ActionCreators.removeHobbyEvent(filteredEvents));
-  };
-
-  const handleNewEvent = data => {
-    setHobbyEventData([data, ...hobbyEventData]);
-  };
-
-  const categoryListItems = categoryState.categories.map((category, index) => (
-    <MenuItem value={category.id} key={index}>
-      {category.name}
-    </MenuItem>
-  ));
   const locationListItems = locationState.locations.map((location, index) => (
     <MenuItem value={location.id} key={index}>
       {location.name}
@@ -78,13 +61,6 @@ const HobbyForm = ({ cancelUrl }) => {
       </MenuItem>
     )
   );
-  const hobbyEventItems = formState.hobbyEvents.map((hobbyEvent, index) => (
-    <HobbyEventItem
-      data={hobbyEvent}
-      key={index}
-      handleRemoveEvent={() => handleRemoveEvent(hobbyEvent.id)}
-    />
-  ));
 
   const useStyles = makeStyles(theme => ({
     button: {
@@ -99,37 +75,34 @@ const HobbyForm = ({ cancelUrl }) => {
 
   const submitHandler = event => {
     event.preventDefault();
-    dispatch(ActionCreators.createHobby(formState.hobby));
-  };
 
-  useDeepCompareEffect(() => {
-    const postedEvents = [...formState.hobbyEvents];
-    if (formState.hobby.id) {
-      postedEvents.forEach((object, index) => {
-        /* eslint-disable no-unused-vars */
-        for (const key in object) {
-          if (key === 'start_date' || key === 'end_date') {
-            postedEvents[index] = {
-              ...postedEvents[index],
-              [key]: object[key].format('YYYY-MM-DD')
-            };
-          } else if (key === 'start_time' || key === 'end_time') {
-            postedEvents[index] = {
-              ...postedEvents[index],
-              [key]: object[key].format('HH:mm')
-            };
-          }
-        }
-        dispatch(
-          ActionCreators.createHobbyEvent({
-            ...postedEvents[index],
-            hobby: formState.hobby.id
-          })
-        );
-      });
-      history.push('/');
+    let postedPromotion = { ...formState.promotion };
+    if (
+      postedPromotion.cover_image === null ||
+      postedPromotion.cover_image.length < 300
+    ) {
+      delete postedPromotion.cover_image;
     }
-  }, [formState.hobby.id]);
+
+    for (const key in postedPromotion) {
+      if (key === 'start_date' || key === 'end_date') {
+        postedPromotion = {
+          ...postedPromotion,
+          [key]: postedPromotion[key].format('YYYY-MM-DD')
+        };
+      } else if (key === 'start_time' || key === 'end_time') {
+        postedPromotion = {
+          ...postedPromotion,
+          [key]: postedPromotion[key].format('HH:mm')
+        };
+      }
+    }
+
+    dispatch(
+      ActionCreators.updatePromotion(formState.promotion.id, postedPromotion)
+    );
+    history.push('/');
+  };
 
   return (
     <form onSubmit={submitHandler}>
@@ -138,8 +111,10 @@ const HobbyForm = ({ cancelUrl }) => {
           <TextField
             id="name"
             name="name"
+            value={formState.promotion.name || ''}
+            placeholder={''}
             required
-            label="Nimi"
+            label=""
             margin="dense"
             variant="outlined"
             onChange={handleChange}
@@ -150,11 +125,11 @@ const HobbyForm = ({ cancelUrl }) => {
       <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
-            <InputLabel>Sijainti</InputLabel>
+            <InputLabel>Vaihda sijainti</InputLabel>
             <Select
               id="location"
               name="location"
-              value={formState.hobby.location || ''}
+              value={locationID || ''}
               onChange={handleChange}
             >
               {locationListItems}
@@ -185,7 +160,9 @@ const HobbyForm = ({ cancelUrl }) => {
                 <ImageSearchIcon className={classes.leftIcon} />
                 Valitse kuva
               </Button>
-              <p>{formState.hobby.cover_image ? 'Kuva valittu' : 'Ei kuvaa'}</p>
+              <p>
+                {formState.promotion.cover_image ? 'Kuva valittu' : 'Ei kuvaa'}
+              </p>
             </div>
           </label>
         </FormControl>
@@ -196,22 +173,36 @@ const HobbyForm = ({ cancelUrl }) => {
           <TextField
             id="description"
             name="description"
-            label="Kuvaus"
+            label=""
+            value={formState.promotion.description || ''}
             margin="dense"
             variant="outlined"
             onChange={handleChange}
           />
         </FormControl>
       </Box>
-
+      <Box mt={4}>
+        <FormControl fullWidth>
+          <TextField
+            id="available_count"
+            name="available_count"
+            label="Käyttökertojen määrä"
+            value={formState.promotion.available_count || ''}
+            margin="dense"
+            variant="outlined"
+            type="number"
+            onChange={handleChange}
+          />
+        </FormControl>
+      </Box>
       <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
-            <InputLabel>Järjestäjä</InputLabel>
+            <InputLabel>Vaihda järjestäjä</InputLabel>
             <Select
               id="organizer"
               name="organizer"
-              value={formState.hobby.organizer || ''}
+              value={formState.promotion.organizer || ''}
               onChange={handleChange}
             >
               {organizerListItems}
@@ -220,52 +211,73 @@ const HobbyForm = ({ cancelUrl }) => {
         </div>
         <OrganizerModalButton />
       </Box>
-
       <Box mt={4}>
-        <FormControl fullWidth>
-          <InputLabel htmlFor="select-multiple-chip">Kategoriat</InputLabel>
-          <Select
-            multiple
-            name="categories"
-            value={formState.hobby.categories || []}
-            onChange={handleChange}
-            input={<Input id="select-multiple-chip" />}
-            inputProps={{
-              name: 'categories',
-              id: 'category-simple'
-            }}
-            renderValue={selected => (
-              <div>
-                {selected.map(value => (
-                  <Chip
-                    key={value}
-                    label={
-                      categoryState.categories.find(obj => obj.id === value)
-                        .name
-                    }
-                  />
-                ))}
-              </div>
-            )}
-          >
-            {categoryListItems}
-          </Select>
-        </FormControl>
-      </Box>
-
-      <Box mt={4}>
-        <Grid container justify="space-between">
+        <Grid
+          container
+          direction="row"
+          spacing={3}
+          style={{ flexWrap: 'nowrap' }}
+        >
           <Grid item>
-            <Typography variant="h4">Tapahtumat</Typography>
+            <TextField
+              value={
+                formState.promotion.start_date
+                  ? moment(formState.promotion.start_date).format('DD.MM.YYYY')
+                  : 0
+              }
+              variant="outlined"
+              label="Start date"
+              InputProps={{
+                readOnly: true
+              }}
+            />
+            <Box mt={3}>
+              <TextField
+                value={
+                  formState.promotion.start_time
+                    ? moment(formState.promotion.start_time).format('HH:mm')
+                    : 0
+                }
+                variant="outlined"
+                label="Start time"
+                InputProps={{
+                  readOnly: true
+                }}
+              />
+            </Box>
           </Grid>
           <Grid item>
-            <HobbyEventModalButton handleNewEvent={handleNewEvent} />
+            <TextField
+              value={
+                formState.promotion.end_date
+                  ? moment(formState.promotion.end_date).format('DD.MM.YYYY')
+                  : 0
+              }
+              variant="outlined"
+              label="End date"
+              InputProps={{
+                readOnly: true
+              }}
+            />
+            <Box mt={3}>
+              <TextField
+                value={
+                  formState.promotion.end_time
+                    ? moment(formState.promotion.end_time).format('HH:mm')
+                    : 0
+                }
+                variant="outlined"
+                label="End time"
+                InputProps={{
+                  readOnly: true
+                }}
+              />
+            </Box>
           </Grid>
         </Grid>
+        <br />
+        <PromotionModalButton />
       </Box>
-
-      {hobbyEventItems}
-
       <Box mt={3} mb={3}>
         <Grid container justify="flex-end">
           <Grid item>
@@ -282,4 +294,4 @@ const HobbyForm = ({ cancelUrl }) => {
   );
 };
 
-export default HobbyForm;
+export default PromotionEditForm;

@@ -7,6 +7,9 @@ import HobbyCreateView from './components/views/HobbyCreateView';
 import HobbyListView from './components/views/HobbyListView';
 import TopBar from './components/blocks/TopBar';
 import HobbyEditView from './components/views/HobbyEditView';
+import PromotionListView from './components/views/PromotionListView';
+import PromotionEditView from './components/views/PromotionEditView';
+import { PromotionCreateView } from './components/views/PromotionCreateView';
 
 const App = () => {
   return (
@@ -16,6 +19,9 @@ const App = () => {
         <Route path="/hobbies/new" component={HobbyCreateView} />
         <Route path="/" exact component={HobbyListView} />
         <Route path="/hobbies/edit/:id" exact component={HobbyEditView} />
+        <Route path="/promotions" exact component={PromotionListView} />
+        <Route path="/promotions/edit/:id" exact component={PromotionEditView} />
+        <Route path="/promotions/new" exact component={PromotionCreateView} />
       </Router>
     </Provider>
   );

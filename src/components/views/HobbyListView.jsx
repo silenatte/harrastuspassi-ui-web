@@ -23,16 +23,15 @@ const HobbyListView = () => {
     dispatch(ActionCreators.deleteHobby(hobby_id));
   };
   const hobbyList = hobbyState.hobbies.map(hobby => (
-    <Link key={hobby.id} to={`/hobbies/edit/${hobby.id}`}>
-      <HobbyListItem
-        key={hobby.id}
-        imageUrl={hobby.cover_image || 'https://placekitten.com/50/50'}
-        name={hobby.name}
-        secondaryText=""
-        showControls={true}
-        deleteHandler={hobbyDeleteHandler(hobby.id)}
-      />
-    </Link>
+    <HobbyListItem
+      key={hobby.id}
+      imageUrl={hobby.cover_image || 'https://placekitten.com/50/50'}
+      name={hobby.name}
+      id={hobby.id}
+      secondaryText=""
+      showControls={true}
+      deleteHandler={hobbyDeleteHandler(hobby.id)}
+    />
   ));
 
   useEffect(() => {

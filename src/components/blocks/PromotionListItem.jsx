@@ -1,18 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import {
-  ListItem,
-  ListItemText,
-  ListItemIcon,
   Divider,
+  IconButton,
+  ListItem,
+  ListItemIcon,
   ListItemSecondaryAction,
-  IconButton
+  ListItemText
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
-  hobbyListImage: {
+  promotionListImage: {
     maxWidth: '50px',
     maxHeight: '50px'
   },
@@ -21,24 +21,23 @@ const useStyles = makeStyles({
   }
 });
 
-const HobbyListItem = props => {
-  const {
-    deleteHandler,
-    imageUrl,
-    name,
-    secondaryText,
-    showControls,
-    id
-  } = props;
+const PromotionListItem = props => {
+  const { deleteHandler, promotion, showControls } = props;
   const classes = useStyles();
   return (
     <div>
       <ListItem disableGutters={true}>
-        <Link key={id} to={`/hobbies/edit/${id}`}>
+        <Link to={`/promotions/edit/${promotion.id}`}>
           <ListItemIcon>
-            <img className={classes.hobbyListImage} alt={name} src={imageUrl} />
+            <img
+              className={classes.promotionListImage}
+              alt={promotion.name}
+              src={promotion.cover_image}
+            />
           </ListItemIcon>
-          <ListItemText primary={name} secondary={secondaryText} />
+        </Link>
+        <Link to={`/promotions/edit/${promotion.id}`}>
+          <ListItemText primary={promotion.name} secondary={null} />
         </Link>
         {showControls ? (
           <ListItemSecondaryAction>
@@ -59,4 +58,4 @@ const HobbyListItem = props => {
   );
 };
 
-export default HobbyListItem;
+export default PromotionListItem;

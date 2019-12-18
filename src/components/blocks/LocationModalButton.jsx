@@ -13,8 +13,8 @@ const useStyles = makeStyles(theme => ({
     width: 400,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
+    padding: theme.spacing(2, 4, 3)
+  }
 }));
 
 const LocationModalButton = () => {
@@ -29,6 +29,9 @@ const LocationModalButton = () => {
     }
   });
 
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
   const dispatch = useDispatch();
   const locationSubmitHandler = event => {
     const locationFormData = {
@@ -40,27 +43,28 @@ const LocationModalButton = () => {
         type: 'Point',
         coordinates: [
           parseFloat(locationData.coordinates.latitude),
-          parseFloat(locationData.coordinates.longitude),
+          parseFloat(locationData.coordinates.longitude)
         ]
-      },
-    }
+      }
+    };
     dispatch(ActionCreators.createLocation(locationFormData));
     setOpen(false);
   };
 
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-
   return (
     <React.Fragment>
-      <IconButton size='small' onClick={() => setOpen(true)}>
+      <IconButton size="small" onClick={() => setOpen(true)}>
         <AddIcon />
       </IconButton>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        <div style={{ top: '30%', left: '50%', transform: 'translate(-50%, -30%)' }} className={classes.paper}>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <div
+          style={{
+            top: '30%',
+            left: '50%',
+            transform: 'translate(-50%, -30%)'
+          }}
+          className={classes.paper}
+        >
           <h2>Add new location</h2>
           <form>
             <FormControl fullWidth>
@@ -69,7 +73,9 @@ const LocationModalButton = () => {
                 label="Name"
                 margin="dense"
                 variant="outlined"
-                onChange={(event) => setLocationData({ ...locationData, name: event.target.value })}
+                onChange={event =>
+                  setLocationData({ ...locationData, name: event.target.value })
+                }
               />
             </FormControl>
 
@@ -78,7 +84,12 @@ const LocationModalButton = () => {
                 label="Address"
                 margin="dense"
                 variant="outlined"
-                onChange={(event) => setLocationData({ ...locationData, address: event.target.value })}
+                onChange={event =>
+                  setLocationData({
+                    ...locationData,
+                    address: event.target.value
+                  })
+                }
               />
             </FormControl>
 
@@ -87,7 +98,12 @@ const LocationModalButton = () => {
                 label="Zip code"
                 margin="dense"
                 variant="outlined"
-                onChange={(event) => setLocationData({ ...locationData, zip_code: event.target.value })}
+                onChange={event =>
+                  setLocationData({
+                    ...locationData,
+                    zip_code: event.target.value
+                  })
+                }
               />
             </FormControl>
 
@@ -96,7 +112,9 @@ const LocationModalButton = () => {
                 label="City"
                 margin="dense"
                 variant="outlined"
-                onChange={(event) => setLocationData({ ...locationData, city: event.target.value })}
+                onChange={event =>
+                  setLocationData({ ...locationData, city: event.target.value })
+                }
               />
             </FormControl>
 
@@ -105,7 +123,15 @@ const LocationModalButton = () => {
                 label="Latitude"
                 margin="dense"
                 variant="outlined"
-                onChange={(event) => setLocationData({ ...locationData, coordinates: { ...locationData.coordinates, latitude: event.target.value } })}
+                onChange={event =>
+                  setLocationData({
+                    ...locationData,
+                    coordinates: {
+                      ...locationData.coordinates,
+                      longitude: event.target.value
+                    }
+                  })
+                }
               />
             </FormControl>
 
@@ -114,17 +140,28 @@ const LocationModalButton = () => {
                 label="Longitude"
                 margin="dense"
                 variant="outlined"
-                onChange={(event) => setLocationData({ ...locationData, coordinates: { ...locationData.coordinates, longitude: event.target.value } })}
+                onChange={event =>
+                  setLocationData({
+                    ...locationData,
+                    coordinates: {
+                      ...locationData.coordinates,
+                      latitude: event.target.value
+                    }
+                  })
+                }
               />
             </FormControl>
 
             <Box mt={5}>
-              <Grid container justify="flex-end" >
+              <Grid container justify="flex-end">
                 <Grid item>
-                  <Button onClick={() => setOpen(false)}>
-                    Cancel
-                  </Button>
-                  <Button variant="contained" color="primary" type="button" onClick={locationSubmitHandler}>
+                  <Button onClick={() => setOpen(false)}>Cancel</Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    type="button"
+                    onClick={locationSubmitHandler}
+                  >
                     Save
                   </Button>
                 </Grid>

@@ -2,7 +2,8 @@ import {
   SET_FORM,
   SET_HOBBYEVENTS_FORM,
   REMOVE_HOBBYEVENT,
-  SET_REMOVED_EVENTS
+  SET_REMOVED_EVENTS,
+  SET_PROMOTION_FORM
 } from '../actions/formActions';
 import {
   CREATE_HOBBY_SUCCESS,
@@ -11,6 +12,10 @@ import {
   FETCH_HOBBIES_SUCCESS
 } from '../actions/hobbyActions';
 import moment from 'moment';
+import {
+  FETCH_PROMOTION_SUCCESS,
+  FETCH_PROMOTIONS_SUCCESS
+} from '../actions/promotionActions';
 
 const INITIAL_STATE = {
   hobby: {
@@ -22,7 +27,15 @@ const INITIAL_STATE = {
     categories: []
   },
   hobbyEvents: [],
-  removedEvents: []
+  removedEvents: [],
+  promotion: {
+    name: null,
+    location: null,
+    cover_image: null,
+    description: null,
+    organizer: null,
+    available_count: null
+  }
 };
 
 const hobbyReducer = (state = INITIAL_STATE, action) => {
@@ -36,6 +49,14 @@ const hobbyReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         hobbyEvents: [...state.hobbyEvents, action.payload]
+      };
+    case SET_PROMOTION_FORM:
+      return {
+        ...state,
+        promotion: {
+          ...state.promotion,
+          [action.payload.name]: action.payload.value
+        }
       };
     case REMOVE_HOBBYEVENT:
       return { ...state, hobbyEvents: action.payload };
@@ -64,12 +85,25 @@ const hobbyReducer = (state = INITIAL_STATE, action) => {
         ...state,
         hobbyEvents: events
       };
+    case FETCH_PROMOTION_SUCCESS:
+      return {
+        ...state,
+        promotion: {
+          ...action.payload,
+          start_time: moment(action.payload.start_time, 'HH:mm:ss'),
+          end_time: moment(action.payload.end_time, 'HH:mm:ss'),
+          start_date: moment(action.payload.start_date, 'YYYY-MM-DD'),
+          end_date: moment(action.payload.end_date, 'YYYY-MM-DD')
+        }
+      };
     case SET_REMOVED_EVENTS:
       return {
         ...state,
         removedEvents: [...state.removedEvents, action.payload]
       };
     case FETCH_HOBBIES_SUCCESS:
+      return INITIAL_STATE;
+    case FETCH_PROMOTIONS_SUCCESS:
       return INITIAL_STATE;
     default:
       return state;
