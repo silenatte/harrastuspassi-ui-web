@@ -5,6 +5,7 @@ import { Container, List, Typography, Button, Grid } from '@material-ui/core';
 import ActionCreators from '../../actions';
 import HobbyListItem from '../blocks/HobbyListItem';
 import { makeStyles } from '@material-ui/styles';
+import hplogo from '../../img/hp-logo-500x500.png'
 
 const useStyles = makeStyles({
   addHobbyContainer: {
@@ -25,7 +26,7 @@ const HobbyListView = () => {
   const hobbyList = hobbyState.hobbies.map(hobby => (
     <HobbyListItem
       key={hobby.id}
-      imageUrl={hobby.cover_image || 'https://placekitten.com/50/50'}
+      imageUrl={hobby.cover_image || hplogo}
       name={hobby.name}
       id={hobby.id}
       secondaryText=""
