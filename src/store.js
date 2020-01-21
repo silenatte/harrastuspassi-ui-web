@@ -1,4 +1,5 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { combineReducers, compose } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import api from './middleware/api';
 import apiAuthHeader from './middleware/apiAuthHeader';
@@ -10,7 +11,10 @@ import locationReducer from './reducers/locationReducer';
 import formReducer from './reducers/formReducer';
 import promotionReducer from './reducers/promotionReducer';
 
-const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const composeEnhancers =
+  (typeof window !== 'undefined' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
 
 const reducer = combineReducers({
   auth: authReducer,
@@ -22,7 +26,7 @@ const reducer = combineReducers({
   promotions: promotionReducer
 });
 
-export default createStore(
+export default configureStore({
   reducer,
-  composeEnhancers(applyMiddleware(thunk, apiAuthHeader, api))
-);
+  middleware: [thunk, apiAuthHeader, api]
+});
