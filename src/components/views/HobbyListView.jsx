@@ -6,6 +6,7 @@ import ActionCreators from '../../actions';
 import HobbyListItem from '../blocks/HobbyListItem';
 import { makeStyles } from '@material-ui/styles';
 import hplogo from '../../img/hp-logo-500x500.png'
+import { usePositiveEffect } from '../../hooks';
 
 const useStyles = makeStyles({
   addHobbyContainer: {
@@ -20,6 +21,7 @@ const HobbyListView = () => {
   const dispatch = useDispatch();
   const hobbyState = useSelector(state => state.hobbies);
   const classes = useStyles();
+  const accessToken = useSelector(state => state.auth.accessToken);
   const hobbyDeleteHandler = hobby_id => event => {
     dispatch(ActionCreators.deleteHobby(hobby_id));
   };
@@ -35,10 +37,10 @@ const HobbyListView = () => {
     />
   ));
 
-  useEffect(() => {
+  usePositiveEffect(() => {
     // initial data fetch
     dispatch(ActionCreators.fetchHobbies());
-  }, [dispatch]);
+  }, [accessToken]);
 
   return (
     <Container maxWidth="sm">

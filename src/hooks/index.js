@@ -38,6 +38,11 @@ export function useDeepCompareMemoize(value) {
   return ref.current;
 }
 
+export function usePositiveEffect(callback, dependencies) {
+  if (dependencies.includes(undefined)) callback = e => e;
+  useDeepCompareEffect(callback, dependencies);
+}
+
 export function useDeepCompareEffect(callback, dependencies) {
   useEffect(callback, useDeepCompareMemoize(dependencies));
 }
