@@ -22,7 +22,7 @@ const INITIAL_STATE = {
     name: null,
     location: null,
     cover_image: null,
-    description: null,
+    description: '',
     organizer: null,
     categories: []
   },
@@ -32,7 +32,7 @@ const INITIAL_STATE = {
     name: null,
     location: null,
     cover_image: null,
-    description: null,
+    description: '',
     organizer: null,
     available_count: null
   }
