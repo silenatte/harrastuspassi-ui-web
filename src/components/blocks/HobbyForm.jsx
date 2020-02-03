@@ -52,6 +52,10 @@ const HobbyForm = ({ cancelUrl }) => {
     }
   };
 
+  const validateForm = () => {
+    //TODO
+  };
+
   const handleRemoveEvent = id => {
     const filteredEvents = formState.hobbyEvents.filter(item => item.id !== id);
     dispatch(ActionCreators.removeHobbyEvent(filteredEvents));
