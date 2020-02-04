@@ -72,7 +72,7 @@ const hobbyReducer = (state = INITIAL_STATE, action) => {
       };
     case FETCH_HOBBYEVENTS_SUCCESS:
       // eslint-disable-next-line no-case-declarations
-      const events = action.payload.map(event => {
+      const events = action.payload.results.map(event => {
         return {
           ...event,
           start_time: moment(event.start_time, 'HH:mm:ss'),
