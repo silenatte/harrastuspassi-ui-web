@@ -9,7 +9,8 @@ import {
 const INITIAL_STATE = {
   hobbies: [],
   error: null,
-  loading: false
+  loading: false,
+  next: null
 };
 
 const hobbyReducer = (state = INITIAL_STATE, action) => {
@@ -25,9 +26,10 @@ const hobbyReducer = (state = INITIAL_STATE, action) => {
     case FETCH_HOBBIES_SUCCESS:
       return {
         ...state,
-        hobbies: action.payload,
+        hobbies: [...state.hobbies, ...action.payload.results],
         error: null,
-        loading: false
+        loading: false,
+        next: action.payload.next
       };
     case FETCH_HOBBIES_FAILURE:
       error = action.payload; // TODO: how to handle

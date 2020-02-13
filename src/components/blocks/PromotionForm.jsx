@@ -32,13 +32,13 @@ const PromotionForm = () => {
   const history = useHistory();
   const locationID = formState.promotion.location;
   const dispatch = useDispatch();
-  
+
   const handleChange = event => {
     const { name, value } = event.target;
     switch (event.target.name) {
       case 'cover_image':
         const reader = new FileReader();
-        
+
         reader.readAsDataURL(event.target.files[0]);
         reader.onload = () => {
           const image = reader.result;
@@ -49,15 +49,10 @@ const PromotionForm = () => {
         };
         break;
       default:
-        dispatch(
-          ActionCreators.setPromotionFormData(
-            name,
-            value
-          )
-        );
+        dispatch(ActionCreators.setPromotionFormData(name, value));
     }
   };
-  
+
   useDeepCompareEffect(() => {
     dispatch(fetchLocations());
     dispatch(fetchOrganizers());
@@ -65,9 +60,8 @@ const PromotionForm = () => {
     dispatch(setPromotionFormData('end_time', moment()));
     dispatch(setPromotionFormData('start_date', moment()));
     dispatch(setPromotionFormData('end_date', moment()));
-    
   }, []);
-  
+
   const locationListItems = locationState.locations.map((location, index) => (
     <MenuItem value={location.id} key={index}>
       {location.name}
@@ -119,9 +113,7 @@ const PromotionForm = () => {
       }
     }
 
-    dispatch(
-      ActionCreators.createPromotion(postedPromotion)
-    );
+    dispatch(ActionCreators.createPromotion(postedPromotion));
     history.push('/promotions');
   };
 
@@ -146,12 +138,13 @@ const PromotionForm = () => {
       <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
-            <InputLabel>Vaihda sijainti</InputLabel>
+            <InputLabel>Vaihda sijainti *</InputLabel>
             <Select
               id="location"
               name="location"
               value={locationID || ''}
               onChange={handleChange}
+              required
             >
               {locationListItems}
             </Select>
@@ -199,6 +192,7 @@ const PromotionForm = () => {
             margin="dense"
             variant="outlined"
             onChange={handleChange}
+            required
           />
         </FormControl>
       </Box>
@@ -212,19 +206,25 @@ const PromotionForm = () => {
             margin="dense"
             variant="outlined"
             type="number"
+            required
             onChange={handleChange}
           />
         </FormControl>
       </Box>
-      <Box mt={4} style={{ display: 'inline-flex', marginBottom: 30 }} width={1}>
+      <Box
+        mt={4}
+        style={{ display: 'inline-flex', marginBottom: 30 }}
+        width={1}
+      >
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
-            <InputLabel>Vaihda järjestäjä</InputLabel>
+            <InputLabel>Vaihda järjestäjä *</InputLabel>
             <Select
               id="organizer"
               name="organizer"
               value={formState.promotion.organizer || ''}
               onChange={handleChange}
+              required
             >
               {organizerListItems}
             </Select>
@@ -234,14 +234,12 @@ const PromotionForm = () => {
       </Box>
       <Typography variant="h6">Voimassaoloaika</Typography>
       <Box mt={4}>
-        
         <Grid
           container
           direction="row"
           spacing={3}
           style={{ flexWrap: 'nowrap' }}
         >
-          
           <Grid item>
             <TextField
               value={
@@ -251,6 +249,7 @@ const PromotionForm = () => {
               }
               variant="outlined"
               label="Alkamispvm"
+              required
               InputProps={{
                 readOnly: true
               }}
@@ -264,6 +263,7 @@ const PromotionForm = () => {
                 }
                 variant="outlined"
                 label="Alkamisaika"
+                required
                 InputProps={{
                   readOnly: true
                 }}
@@ -279,6 +279,7 @@ const PromotionForm = () => {
               }
               variant="outlined"
               label="Loppumispvm"
+              required
               InputProps={{
                 readOnly: true
               }}
@@ -292,6 +293,7 @@ const PromotionForm = () => {
                 }
                 variant="outlined"
                 label="Loppumisaika"
+                required
                 InputProps={{
                   readOnly: true
                 }}

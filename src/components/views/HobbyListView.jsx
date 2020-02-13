@@ -5,8 +5,9 @@ import { Container, List, Typography, Button, Grid } from '@material-ui/core';
 import ActionCreators from '../../actions';
 import HobbyListItem from '../blocks/HobbyListItem';
 import { makeStyles } from '@material-ui/styles';
-import hplogo from '../../img/hp-logo-500x500.png'
+import hplogo from '../../img/hp-logo-500x500.png';
 import { usePositiveEffect } from '../../hooks';
+import { fetchHobbyPage } from '../../actions/hobbyActions';
 
 const useStyles = makeStyles({
   addHobbyContainer: {
@@ -61,6 +62,11 @@ const HobbyListView = () => {
         </Grid>
       </Grid>
       <List disablePadding={false}>{hobbyList}</List>
+      {hobbyState.next && (
+        <Button onClick={() => dispatch(fetchHobbyPage(hobbyState.next))}>
+          Hae lisää
+        </Button>
+      )}
     </Container>
   );
 };

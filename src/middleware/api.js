@@ -9,7 +9,7 @@ export const API = 'Call API';
 
 export default store => dispatch => action => {
   const callAPI = action[API];
-
+  console.log('API', action);
   if (!callAPI) {
     return dispatch(action);
   }

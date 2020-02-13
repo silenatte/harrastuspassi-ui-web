@@ -10,7 +10,10 @@ import locationReducer from './reducers/locationReducer';
 import formReducer from './reducers/formReducer';
 import promotionReducer from './reducers/promotionReducer';
 
-const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const composeEnhancers =
+  (typeof window !== 'undefined' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
 
 const reducer = combineReducers({
   auth: authReducer,

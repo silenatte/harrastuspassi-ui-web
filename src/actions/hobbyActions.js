@@ -4,6 +4,7 @@ import { API_URL } from '../config';
 const FETCH_HOBBIES = 'FETCH_HOBBIES';
 const FETCH_HOBBIES_SUCCESS = 'FETCH_HOBBIES_SUCCESS';
 const FETCH_HOBBIES_FAILURE = 'FETCH_HOBBIES_FAILURE';
+const FETCH_HOBBY_PAGE = 'FETCH_HOBBY_PAGE';
 
 const FETCH_HOBBY = 'FETCH_HOBBY';
 const FETCH_HOBBY_SUCCESS = 'FETCH_HOBBY_SUCCESS';
@@ -41,7 +42,21 @@ const fetchHobbies = () => ({
   [API]: {
     types: [FETCH_HOBBIES, FETCH_HOBBIES_SUCCESS, FETCH_HOBBIES_FAILURE],
     method: GET,
-    url: `${API_URL}hobbies/?editable_only=true`
+    url: `${API_URL}hobbies/`,
+    usePagination: true,
+    params: {
+      editable_only: true,
+      page_size: 50
+    }
+  }
+});
+
+const fetchHobbyPage = next => ({
+  [API]: {
+    types: [FETCH_HOBBY_PAGE, FETCH_HOBBIES_SUCCESS, FETCH_HOBBIES_FAILURE],
+    method: GET,
+    url: next,
+    usePagination: true
   }
 });
 
@@ -156,12 +171,14 @@ export {
   UPDATE_HOBBYEVENT,
   UPDATE_HOBBYEVENT_FAILURE,
   UPDATE_HOBBYEVENT_SUCCESS,
+  FETCH_HOBBY_PAGE,
   createHobby,
   createHobbyEvent,
   deleteHobby,
   fetchHobbies,
   fetchHobby,
   fetchHobbyEvents,
+  fetchHobbyPage,
   updateHobby,
   updateHobbyEvent,
   deleteHobbyEvent
