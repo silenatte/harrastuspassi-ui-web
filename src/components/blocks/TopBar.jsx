@@ -7,10 +7,14 @@ import ActionCreators from '../../actions';
 const useStyles = makeStyles({
   title: {
     flexGrow: 1,
-    textDecoration: 'none'
+    textDecoration: 'none',
+    marginRight: '70px'
   },
   appBar: {
     marginBottom: '50px'
+  },
+  userName: {
+    marginLeft: 'auto'
   }
 });
 
@@ -42,10 +46,10 @@ const TopBar = () => {
           style={{
             textDecoration: 'none',
             color: 'white',
-            marginLeft: '20px'
+            marginLeft: '30px'
           }}
         >
-          <Typography className={classes.title} variant="h6">
+          <Typography>
             Harrastukset
           </Typography>
         </Link>
@@ -54,15 +58,15 @@ const TopBar = () => {
           style={{
             textDecoration: 'none',
             color: 'white',
-            marginLeft: '20px'
+            marginLeft: '30px'
           }}
         >
-          <Typography className={classes.title} variant="h6">
+          <Typography>
             Etuudet
           </Typography>
         </Link>
         {authState.user ? (
-          <Typography variant="body1">
+          <Typography variant="body1" className={classes.userName}>
             {authState.user.firstName} {authState.user.lastName}
           </Typography>
         ) : (

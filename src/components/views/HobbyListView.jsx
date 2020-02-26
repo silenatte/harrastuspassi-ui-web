@@ -47,7 +47,7 @@ const HobbyListView = () => {
     <Container maxWidth="sm">
       <Grid container>
         <Grid item xs={8}>
-          <Typography variant="h3">Harrastukset</Typography>
+          <Typography variant="h4">Harrastukset</Typography>
         </Grid>
         <Grid item xs={4} className={classes.addHobbyContainer}>
           <Button
@@ -61,12 +61,16 @@ const HobbyListView = () => {
           </Button>
         </Grid>
       </Grid>
-      <List disablePadding={false}>{hobbyList}</List>
-      {hobbyState.next && (
-        <Button onClick={() => dispatch(fetchHobbyPage(hobbyState.next))}>
-          Hae lisää
-        </Button>
-      )}
+      {hobbyState.hobbies.length > 0 ?
+        <List disablePadding={false}>{hobbyList}</List>
+        :
+      <p>Sinulla ei ole lisättyjä harrastuksia.</p>
+      }
+        {hobbyState.next && (
+          <Button onClick={() => dispatch(fetchHobbyPage(hobbyState.next))}>
+            Hae lisää
+          </Button>
+        )}
     </Container>
   );
 };
