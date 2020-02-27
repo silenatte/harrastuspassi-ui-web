@@ -39,7 +39,7 @@ const HobbyListItem = props => {
             <img className={classes.hobbyListImage} alt={name} src={imageUrl} />
           </ListItemIcon>
         </Link>
-        <Link>
+        <Link to={`/hobbies/edit/${id}`}>
           <ListItemText primary={name} secondary={secondaryText} />
         </Link>
         {showControls ? (
