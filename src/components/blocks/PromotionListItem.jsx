@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 });
 
 const PromotionListItem = props => {
-  const { deleteHandler, promotion, showControls } = props;
+  const { deleteHandler, promotion, showControls, imageUrl } = props;
   const classes = useStyles();
   return (
     <div>
@@ -32,7 +32,7 @@ const PromotionListItem = props => {
             <img
               className={classes.promotionListImage}
               alt={promotion.name}
-              src={promotion.cover_image}
+              src={imageUrl}
             />
           </ListItemIcon>
         </Link>

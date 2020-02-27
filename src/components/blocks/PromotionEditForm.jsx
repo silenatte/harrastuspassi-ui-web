@@ -68,6 +68,9 @@ const PromotionEditForm = ({ cancelUrl }) => {
     },
     leftIcon: {
       marginRight: theme.spacing(1)
+    },
+    cancelButton: {
+      marginRight: theme.spacing(2)
     }
   }));
 
@@ -278,10 +281,10 @@ const PromotionEditForm = ({ cancelUrl }) => {
         <br />
         <PromotionModalButton />
       </Box>
-      <Box mt={3} mb={3}>
+      <Box mt={10} mb={3}>
         <Grid container justify="flex-end">
           <Grid item>
-            <Button component={Link} to={cancelUrl}>
+            <Button component={Link} to={cancelUrl} className={classes.cancelButton}>
               Peruuta
             </Button>
             <Button variant="contained" color="primary" type="submit">
