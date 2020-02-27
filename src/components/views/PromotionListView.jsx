@@ -8,10 +8,13 @@ import {
 import PromotionListItem from '../blocks/PromotionListItem';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
+import hplogo from '../../img/hp-logo-500x500.png'
+import { usePositiveEffect } from '../../hooks';
+import ActionCreators from '../../actions';
 
 const PromotionListView = () => {
   const promotions = useSelector(state => state.promotions.promotions);
-
+  const accessToken = useSelector(state => state.auth.accessToken);
   const dispatch = useDispatch();
 
   const useStyles = makeStyles({
@@ -25,9 +28,11 @@ const PromotionListView = () => {
 
   const classes = useStyles();
 
-  useEffect(() => {
-    dispatch(fetchPromotions());
-  }, []);
+  usePositiveEffect(() => {
+    // initial data fetch
+    dispatch(ActionCreators.fetchPromotions());
+  }, [accessToken]);
+
 
   const PromotionList = () => {
     return promotions.map(promotion => {
@@ -35,6 +40,7 @@ const PromotionListView = () => {
         <PromotionListItem
           key={promotion.id}
           promotion={promotion}
+          imageUrl={promotion.cover_image || hplogo}
           deleteHandler={() => dispatch(deletePromotion(promotion.id))}
           showControls={true}
         />
@@ -45,7 +51,7 @@ const PromotionListView = () => {
     <Container maxWidth="sm">
       <Grid container>
         <Grid item xs={8}>
-          <Typography variant="h3">Etuudet</Typography>
+          <Typography variant="h4">Etuudet</Typography>
         </Grid>
       <Grid item xs={4} className={classes.addHobbyContainer}>
         <Button
@@ -58,9 +64,13 @@ const PromotionListView = () => {
           Uusi etuus
         </Button>
       </Grid></Grid>
-      <List>
-        <PromotionList />
-      </List>
+      {promotions.length > 0 ?
+        <List>
+          <PromotionList />
+        </List>
+      :
+        <p>Sinulla ei ole lisättyjä etuuksia.</p>
+      }
     </Container>
   );
 };
