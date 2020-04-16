@@ -208,6 +208,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
               <p>{formState.hobby.cover_image ? 'Kuva valittu' : 'Ei kuvaa'}</p>
             </div>
           </label>
+          <p style={{ fontSize: 14}}>Suurin sallittu tiedostokoko: 2 Mt. Kuvan optimaalinen resoluutio on n. 1280x720 px. </p>
         </FormControl>
       </Box>
 
@@ -282,6 +283,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
             <HobbyEventModalButton handleNewEvent={handleNewEvent} />
           </Grid>
         </Grid>
+        <p>Mikäli haluat luoda toistuvia tapahtumia, ota yhteyttä tukiosoitteeseen harrastuspassi@tuki.haltu.fi</p>
       </Box>
 
       {hobbyEventItems}

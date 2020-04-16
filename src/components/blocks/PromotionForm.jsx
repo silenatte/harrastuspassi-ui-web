@@ -190,7 +190,7 @@ const PromotionForm = () => {
           <TextField
             id="description"
             name="description"
-            label="Kuvaus"
+            label="Kuvaus *"
             value={formState.promotion.description || ''}
             margin="dense"
             variant="outlined"
