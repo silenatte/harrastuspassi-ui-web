@@ -54,6 +54,9 @@ const HobbyForm = ({ cancelUrl }) => {
         break;
       case 'price_type':
         setPriceValue(event.target.value);
+        if (event.target.value === 'free') {
+          dispatch(ActionCreators.setFormData('price_amount', 0));
+        }
         dispatch(ActionCreators.setFormData(name, value));
         break;
       default:
