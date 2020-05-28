@@ -16,6 +16,10 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
 import OrganizerModalButton from './OrganizerModalButton';
 import LocationModalButton from './LocationModalButton';
 import HobbyEventModalButton from './HobbyEventModalButton';
@@ -31,6 +35,7 @@ const HobbyForm = ({ cancelUrl }) => {
   const history = useHistory();
 
   const [hobbyEventData, setHobbyEventData] = React.useState([]);
+  const [priceValue, setPriceValue] = React.useState('free');
 
   const dispatch = useDispatch();
   const handleChange = event => {
@@ -46,6 +51,10 @@ const HobbyForm = ({ cancelUrl }) => {
         reader.onerror = () => {
           window.alert('Kuvan käsittelyssä tapahtui virhe!');
         };
+        break;
+      case 'price_type':
+        setPriceValue(event.target.value);
+        dispatch(ActionCreators.setFormData(name, value));
         break;
       default:
         dispatch(ActionCreators.setFormData(name, value));
@@ -261,6 +270,35 @@ const HobbyForm = ({ cancelUrl }) => {
         </FormControl>
       </Box>
 
+      <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
+        <div style={{ width: '100%' }}>
+          <FormControl fullWidth>
+            <FormLabel component="legend">Hinnan tyyppi</FormLabel>
+            <RadioGroup name='price_type' value={priceValue} onChange={handleChange}>
+              <FormControlLabel value='free' control={<Radio />} label='Ilmainen' />
+              <FormControlLabel value='annual' control={<Radio />} label='Vuosimaksu' />
+              <FormControlLabel value='seasonal' control={<Radio />} label='Kausimaksu' />
+              <FormControlLabel value='one_time' control={<Radio />} label='Kertamaksu' />
+            </RadioGroup>
+          </FormControl>
+        </div>
+      </Box>
+      {formState.hobby.price_type && formState.hobby.price_type !== 'free' && (
+        <Box mt={4} style={{ display: 'inline-flex' }} width={1}>
+          <div style={{ width: '100%' }}>
+            <FormControl fullWidth>
+              <TextField
+                id="price_amount"
+                name="price_amount"
+                label="Hinta"
+                margin="dense"
+                variant="outlined"
+                onChange={handleChange}
+              />
+            </FormControl>
+          </div>
+        </Box>
+      )}
       <Box mt={4}>
         <Grid container justify="space-between">
           <Grid item>
