@@ -3,9 +3,6 @@ import {
   Grid,
   TextField,
   Box,
-  FormGroup,
-  FormControlLabel,
-  Checkbox
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -75,36 +72,6 @@ const HobbyEventItem = ({ data, handleRemoveEvent }) => {
             <CloseIcon />
           </IconButton>
         </Grid>
-      </Grid>
-      <Grid>
-        <FormGroup row>
-          <FormControlLabel
-            control={
-              <Checkbox
-                InputProps={{
-                  readOnly: true
-                }}
-                checked={data.is_recurrent}
-                name="checkedA"
-              />
-            }
-            label="Toistuu viikoittain"
-          />
-          <FormControlLabel
-            control={
-              <TextField
-                InputProps={{
-                  readOnly: true
-                }}
-                value={data.recurrency_count}
-                type="number"
-                size="small"
-                style={{ width: 50 }}
-              />
-            }
-            label="viikon ajan"
-          />
-        </FormGroup>
       </Grid>
     </Box>
   );

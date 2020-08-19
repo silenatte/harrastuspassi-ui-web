@@ -177,7 +177,7 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
                           onChange={e => {
                             setHobbyEventData({
                               ...hobbyEventData,
-                              is_recurrent: e.target.checked
+                              is_recurrent: e.target.checked ? 1 : 0
                             });
                           }}
                           name="checkedA"
@@ -192,7 +192,7 @@ const HobbyEventModalButton = ({ handleNewEvent }) => {
                           onChange={e => {
                             setHobbyEventData({
                               ...hobbyEventData,
-                              recurrency_count: e.target.value
+                              recurrency_count: Number(e.target.value)
                             });
                           }}
                           type="number"
