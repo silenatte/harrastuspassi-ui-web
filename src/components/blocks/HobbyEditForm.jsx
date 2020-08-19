@@ -26,7 +26,6 @@ import LocationModalButton from './LocationModalButton';
 import HobbyEventModalButton from './HobbyEventModalButton';
 import HobbyEventItem from './HobbyEventItem';
 import ActionCreators from '../../actions';
-import { useDeepCompareEffect } from '../../hooks';
 import { isNumber } from 'util';
 
 const HobbyEditForm = ({ cancelUrl }) => {
@@ -38,7 +37,7 @@ const HobbyEditForm = ({ cancelUrl }) => {
   const locationID = formState.hobby.location;
 
   const [hobbyEventData, setHobbyEventData] = React.useState([]);
-  const [priceValue, setPriceValue] = React.useState(`${formState.hobby.price_type}`);
+  const [, setPriceValue] = React.useState(`${formState.hobby.price_type}`);
 
   const dispatch = useDispatch();
   const handleChange = event => {
@@ -220,7 +219,10 @@ const HobbyEditForm = ({ cancelUrl }) => {
               <p>{formState.hobby.cover_image ? 'Kuva valittu' : 'Ei kuvaa'}</p>
             </div>
           </label>
-          <p style={{ fontSize: 14}}>Suurin sallittu tiedostokoko: 2 Mt. Kuvan optimaalinen resoluutio on n. 1280x720 px. </p>
+          <p style={{ fontSize: 14 }}>
+            Suurin sallittu tiedostokoko: 2 Mt. Kuvan optimaalinen resoluutio on
+            n. 1280x720 px.{' '}
+          </p>
         </FormControl>
       </Box>
 
@@ -274,7 +276,8 @@ const HobbyEditForm = ({ cancelUrl }) => {
                   <Chip
                     key={value}
                     label={
-                      (categoryState.categories.find(o => o.id === value) || {}).name
+                      (categoryState.categories.find(o => o.id === value) || {})
+                        .name
                     }
                   />
                 ))}
@@ -289,11 +292,31 @@ const HobbyEditForm = ({ cancelUrl }) => {
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
             <FormLabel component="legend">Vaihda hinnan tyyppi</FormLabel>
-            <RadioGroup name='price_type' value={formState.hobby.price_type || 'undefined'} onChange={handleChange}>
-              <FormControlLabel value='free' control={<Radio />} label='Ilmainen' />
-              <FormControlLabel value='annual' control={<Radio />} label='Vuosimaksu' />
-              <FormControlLabel value='seasonal' control={<Radio />} label='Kausimaksu' />
-              <FormControlLabel value='one_time' control={<Radio />} label='Kertamaksu' />
+            <RadioGroup
+              name="price_type"
+              value={formState.hobby.price_type || 'undefined'}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value="free"
+                control={<Radio />}
+                label="Ilmainen"
+              />
+              <FormControlLabel
+                value="annual"
+                control={<Radio />}
+                label="Vuosimaksu"
+              />
+              <FormControlLabel
+                value="seasonal"
+                control={<Radio />}
+                label="Kausimaksu"
+              />
+              <FormControlLabel
+                value="one_time"
+                control={<Radio />}
+                label="Kertamaksu"
+              />
             </RadioGroup>
           </FormControl>
         </div>
@@ -324,7 +347,10 @@ const HobbyEditForm = ({ cancelUrl }) => {
             <HobbyEventModalButton handleNewEvent={handleNewEvent} />
           </Grid>
         </Grid>
-        <p>Mikäli haluat luoda toistuvia tapahtumia, ota yhteyttä tukiosoitteeseen harrastuspassi@tuki.haltu.fi</p>
+        <p>
+          Mikäli haluat luoda toistuvia tapahtumia, ota yhteyttä
+          tukiosoitteeseen harrastuspassi@tuki.haltu.fi
+        </p>
       </Box>
 
       {hobbyEventItems}

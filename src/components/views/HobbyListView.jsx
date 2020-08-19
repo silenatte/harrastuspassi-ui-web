@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, List, Typography, Button, Grid } from '@material-ui/core';
@@ -61,16 +61,16 @@ const HobbyListView = () => {
           </Button>
         </Grid>
       </Grid>
-      {hobbyState.hobbies.length > 0 ?
+      {hobbyState.hobbies.length > 0 ? (
         <List disablePadding={false}>{hobbyList}</List>
-        :
-      <p>Sinulla ei ole lisättyjä harrastuksia.</p>
-      }
-        {hobbyState.next && (
-          <Button onClick={() => dispatch(fetchHobbyPage(hobbyState.next))}>
-            Hae lisää
-          </Button>
-        )}
+      ) : (
+        <p>Sinulla ei ole lisättyjä harrastuksia.</p>
+      )}
+      {hobbyState.next && (
+        <Button onClick={() => dispatch(fetchHobbyPage(hobbyState.next))}>
+          Hae lisää
+        </Button>
+      )}
     </Container>
   );
 };

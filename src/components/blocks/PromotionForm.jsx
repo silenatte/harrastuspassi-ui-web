@@ -22,7 +22,6 @@ import PromotionModalButton from './PromotionModalButton';
 import { useDeepCompareEffect } from '../../hooks';
 import { fetchLocations } from '../../actions/locationActions';
 import { fetchOrganizers } from '../../actions/organizerActions';
-import { setBatch } from 'react-redux/lib/utils/batch';
 import { setPromotionFormData } from '../../actions/formActions';
 
 const PromotionForm = () => {
@@ -310,7 +309,11 @@ const PromotionForm = () => {
       <Box mt={10} mb={3}>
         <Grid container justify="flex-end">
           <Grid item>
-            <Button component={Link} to={'/promotions'} className={classes.cancelButton}>
+            <Button
+              component={Link}
+              to={'/promotions'}
+              className={classes.cancelButton}
+            >
               Peruuta
             </Button>
             <Button variant="contained" color="primary" type="submit">

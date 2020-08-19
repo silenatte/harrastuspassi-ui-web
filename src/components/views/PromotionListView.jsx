@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Container, Grid, List, Typography } from '@material-ui/core';
-import {
-  deletePromotion,
-  fetchPromotions
-} from '../../actions/promotionActions';
+import { deletePromotion } from '../../actions/promotionActions';
 import PromotionListItem from '../blocks/PromotionListItem';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
-import hplogo from '../../img/hp-logo-500x500.png'
+import hplogo from '../../img/hp-logo-500x500.png';
 import { usePositiveEffect } from '../../hooks';
 import ActionCreators from '../../actions';
 
@@ -33,7 +30,6 @@ const PromotionListView = () => {
     dispatch(ActionCreators.fetchPromotions());
   }, [accessToken]);
 
-
   const PromotionList = () => {
     return promotions.map(promotion => {
       return (
@@ -53,24 +49,25 @@ const PromotionListView = () => {
         <Grid item xs={8}>
           <Typography variant="h4">Etuudet</Typography>
         </Grid>
-      <Grid item xs={4} className={classes.addHobbyContainer}>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.addHobbyBtn}
-          component={Link}
-          to="/promotions/new"
-        >
-          Uusi etuus
-        </Button>
-      </Grid></Grid>
-      {promotions.length > 0 ?
+        <Grid item xs={4} className={classes.addHobbyContainer}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.addHobbyBtn}
+            component={Link}
+            to="/promotions/new"
+          >
+            Uusi etuus
+          </Button>
+        </Grid>
+      </Grid>
+      {promotions.length > 0 ? (
         <List>
           <PromotionList />
         </List>
-      :
+      ) : (
         <p>Sinulla ei ole lisättyjä etuuksia.</p>
-      }
+      )}
     </Container>
   );
 };

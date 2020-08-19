@@ -64,10 +64,6 @@ const HobbyForm = ({ cancelUrl }) => {
     }
   };
 
-  const validateForm = () => {
-    //TODO
-  };
-
   const handleRemoveEvent = id => {
     const filteredEvents = formState.hobbyEvents.filter(item => item.id !== id);
     dispatch(ActionCreators.removeHobbyEvent(filteredEvents));
@@ -207,7 +203,10 @@ const HobbyForm = ({ cancelUrl }) => {
               <p>{formState.hobby.cover_image ? 'Kuva valittu' : 'Ei kuvaa'}</p>
             </div>
           </label>
-          <p style={{ fontSize: 14}}>Suurin sallittu tiedostokoko: 2 Mt. Kuvan optimaalinen resoluutio on n. 1280x720 px. </p>
+          <p style={{ fontSize: 14 }}>
+            Suurin sallittu tiedostokoko: 2 Mt. Kuvan optimaalinen resoluutio on
+            n. 1280x720 px.{' '}
+          </p>
         </FormControl>
       </Box>
 
@@ -277,11 +276,31 @@ const HobbyForm = ({ cancelUrl }) => {
         <div style={{ width: '100%' }}>
           <FormControl fullWidth>
             <FormLabel component="legend">Hinnan tyyppi</FormLabel>
-            <RadioGroup name='price_type' value={priceValue} onChange={handleChange}>
-              <FormControlLabel value='free' control={<Radio />} label='Ilmainen' />
-              <FormControlLabel value='annual' control={<Radio />} label='Vuosimaksu' />
-              <FormControlLabel value='seasonal' control={<Radio />} label='Kausimaksu' />
-              <FormControlLabel value='one_time' control={<Radio />} label='Kertamaksu' />
+            <RadioGroup
+              name="price_type"
+              value={priceValue}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value="free"
+                control={<Radio />}
+                label="Ilmainen"
+              />
+              <FormControlLabel
+                value="annual"
+                control={<Radio />}
+                label="Vuosimaksu"
+              />
+              <FormControlLabel
+                value="seasonal"
+                control={<Radio />}
+                label="Kausimaksu"
+              />
+              <FormControlLabel
+                value="one_time"
+                control={<Radio />}
+                label="Kertamaksu"
+              />
             </RadioGroup>
           </FormControl>
         </div>
@@ -311,7 +330,10 @@ const HobbyForm = ({ cancelUrl }) => {
             <HobbyEventModalButton handleNewEvent={handleNewEvent} />
           </Grid>
         </Grid>
-        <p>Mikäli haluat luoda toistuvia tapahtumia, ota yhteyttä tukiosoitteeseen harrastuspassi@tuki.haltu.fi</p>
+        <p>
+          Mikäli haluat luoda toistuvia tapahtumia, ota yhteyttä
+          tukiosoitteeseen harrastuspassi@tuki.haltu.fi
+        </p>
       </Box>
 
       {hobbyEventItems}
@@ -319,7 +341,11 @@ const HobbyForm = ({ cancelUrl }) => {
       <Box mt={10} mb={3}>
         <Grid container justify="flex-end">
           <Grid item>
-            <Button component={Link} to={cancelUrl} className={classes.cancelButton}>
+            <Button
+              component={Link}
+              to={cancelUrl}
+              className={classes.cancelButton}
+            >
               Peruuta
             </Button>
             <Button variant="contained" color="primary" type="submit">

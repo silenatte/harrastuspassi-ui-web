@@ -284,7 +284,11 @@ const PromotionEditForm = ({ cancelUrl }) => {
       <Box mt={10} mb={3}>
         <Grid container justify="flex-end">
           <Grid item>
-            <Button component={Link} to={cancelUrl} className={classes.cancelButton}>
+            <Button
+              component={Link}
+              to={cancelUrl}
+              className={classes.cancelButton}
+            >
               Peruuta
             </Button>
             <Button variant="contained" color="primary" type="submit">
